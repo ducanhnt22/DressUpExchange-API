@@ -1,0 +1,14 @@
+D:\DressUpExchange\Data\bin\Debug\net7.0\DressUpExchange.Data.deps.json
+D:\DressUpExchange\Data\bin\Debug\net7.0\DressUpExchange.Data.runtimeconfig.json
+D:\DressUpExchange\Data\bin\Debug\net7.0\DressUpExchange.Data.dll
+D:\DressUpExchange\Data\bin\Debug\net7.0\DressUpExchange.Data.pdb
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.csproj.AssemblyReference.cache
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.AssemblyInfoInputs.cache
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.AssemblyInfo.cs
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.csproj.CoreCompileInputs.cache
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.dll
+D:\DressUpExchange\Data\obj\Debug\net7.0\refint\DressUpExchange.Data.dll
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.pdb
+D:\DressUpExchange\Data\obj\Debug\net7.0\DressUpExchange.Data.genruntimeconfig.cache
+D:\DressUpExchange\Data\obj\Debug\net7.0\ref\DressUpExchange.Data.dll
