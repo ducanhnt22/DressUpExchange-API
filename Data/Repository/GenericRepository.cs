@@ -19,54 +19,66 @@ namespace DressUpExchange.Data.Repository
             Context = context;
             Table = Context.Set<T>();
         }
-        public Task CreateAsync(T entity)
+        public async Task CreateAsync(T entity)
         {
-            throw new NotImplementedException();
+            await Context.AddAsync(entity);
         }
 
         public EntityEntry<T> Delete(T entity)
         {
-            throw new NotImplementedException();
+            return Context.Remove(entity);
         }
 
         public T Find(Func<T, bool> predicate)
         {
-            throw new NotImplementedException();
+            return Table.FirstOrDefault(predicate);
         }
 
         public IQueryable<T> FindAll(Func<T, bool> predicate)
         {
-            throw new NotImplementedException();
+            return Table.Where(predicate).AsQueryable();
         }
 
-        public Task<T> FindAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await Table.SingleOrDefaultAsync(predicate);
         }
 
         public DbSet<T> GetAll()
         {
-            throw new NotImplementedException();
+            return Table;
         }
 
-        public Task<T> GetAsync(Expression<Func<T, bool>>? filter = null)
+        public async Task<T> GetAsync(Expression<Func<T, bool>>? filter = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = Table;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.FirstOrDefaultAsync();
         }
 
-        public Task<T> GetById(int id)
+        public async Task<T> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await Table.FindAsync(id);
         }
 
-        public Task<List<T>> GetWhere(Expression<Func<T, bool>>? filter = null)
+        public async Task<List<T>> GetWhere(Expression<Func<T, bool>>? filter = null)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = Table;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.ToListAsync();
         }
 
-        public Task Update(T entity, int Id)
+        public async Task Update(T entity, int Id)
         {
-            throw new NotImplementedException();
+            var existEntity = await GetById(Id);
+            Context.Entry(existEntity).CurrentValues.SetValues(entity);
+            Table.Update(existEntity);
         }
     }
 }
