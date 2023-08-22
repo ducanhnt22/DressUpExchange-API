@@ -100,21 +100,15 @@ namespace DressUpExchange.Data.Entity
                     .ValueGeneratedNever()
                     .HasColumnName("ProductID");
 
-                entity.Property(e => e.Category)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                entity.Property(e => e.Category).HasMaxLength(50);
 
                 entity.Property(e => e.Description).HasColumnType("text");
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-                entity.Property(e => e.ProductImg)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.ProductImg).HasMaxLength(100);
 
                 entity.Property(e => e.Quantity).HasColumnType("decimal(10, 2)");
 
@@ -129,7 +123,7 @@ namespace DressUpExchange.Data.Entity
             modelBuilder.Entity<ProductFeedback>(entity =>
             {
                 entity.HasKey(e => e.FeedbackId)
-                    .HasName("PK__ProductF__6A4BEDF64DE48ACF");
+                    .HasName("PK__ProductF__6A4BEDF69D935343");
 
                 entity.ToTable("ProductFeedback");
 
@@ -160,13 +154,9 @@ namespace DressUpExchange.Data.Entity
                     .ValueGeneratedNever()
                     .HasColumnName("ShopID");
 
-                entity.Property(e => e.ShopLogo)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.ShopLogo).HasMaxLength(100);
 
-                entity.Property(e => e.ShopName)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.ShopName).HasMaxLength(100);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
@@ -181,6 +171,10 @@ namespace DressUpExchange.Data.Entity
                 entity.Property(e => e.UserId)
                     .ValueGeneratedNever()
                     .HasColumnName("UserID");
+
+                entity.Property(e => e.Address).HasMaxLength(100);
+
+                entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(100)
@@ -224,9 +218,7 @@ namespace DressUpExchange.Data.Entity
                     .ValueGeneratedNever()
                     .HasColumnName("VoucherID");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
+                entity.Property(e => e.Code).HasMaxLength(20);
 
                 entity.Property(e => e.DiscountAmount).HasColumnType("decimal(10, 2)");
 
