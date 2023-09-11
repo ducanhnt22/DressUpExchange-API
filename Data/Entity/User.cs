@@ -10,8 +10,9 @@ namespace DressUpExchange.Data.Entity
             Notifications = new HashSet<Notification>();
             Orders = new HashSet<Order>();
             ProductFeedbacks = new HashSet<ProductFeedback>();
-            Shops = new HashSet<Shop>();
+            Products = new HashSet<Product>();
             UserSavedVouchers = new HashSet<UserSavedVoucher>();
+            Vouchers = new HashSet<Voucher>();
         }
 
         public int UserId { get; set; }
@@ -20,12 +21,13 @@ namespace DressUpExchange.Data.Entity
         public string? Name { get; set; }
         public string? Address { get; set; }
         public string? Role { get; set; }
-        public int? ShopId { get; set; }
+        public string? Status { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<ProductFeedback> ProductFeedbacks { get; set; }
-        public virtual ICollection<Shop> Shops { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<UserSavedVoucher> UserSavedVouchers { get; set; }
+        public virtual ICollection<Voucher> Vouchers { get; set; }
     }
 }
