@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DressUpExchange.Data.Entity
 {
@@ -22,6 +23,10 @@ namespace DressUpExchange.Data.Entity
         public string? Address { get; set; }
         public string? Role { get; set; }
         public string? Status { get; set; }
+
+        [NotMapped]
+        public string? RefreshToken { get; set; }
+        public DateTime? ExpireTokenTime { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

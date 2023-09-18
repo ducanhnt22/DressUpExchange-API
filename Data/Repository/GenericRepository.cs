@@ -75,5 +75,14 @@ namespace DressUpExchange.Data.Repository
             Context.Entry(existEntity).CurrentValues.SetValues(entity);
             Table.Update(existEntity);
         }
+
+        public async Task<User> GetUserByPhoneAndPassword(string phone, string password)
+        {
+            return await Table.OfType<User>().FirstOrDefaultAsync(x => x.PhoneNumber == phone && x.Password == password);
+        }
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await Table.ToListAsync();
+        }
     }
 }

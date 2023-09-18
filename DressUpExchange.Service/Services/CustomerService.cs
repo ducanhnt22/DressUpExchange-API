@@ -27,7 +27,7 @@ namespace DressUpExchange.Service.Services
         Task<UserResponse> DeleteCustomer(int id);
         //Task<string> Verification(string phone, string code);
         //Task<UserResponse> ResetPassword(bool forgotPass, ResetPasswordRequest resetPassword, string email);
-        Task<UserResponse> Login(LoginRequest request);
+        Task<UserLoginResponse> LoginAsync(LoginRequest request);
         Task<UserResponse> GetCustomerById(int id);
         Task<UserResponse> UpdateCustomer(int customerId, CustomerRequest request);
     }
@@ -123,26 +123,70 @@ namespace DressUpExchange.Service.Services
             var result = PageHelper<UserResponse>.Paging(sort, paging.Page, paging.PageSize);
             return Task.FromResult(result);
         }
-        private string GenerateJwtToken(User customer)
+        public async Task<UserLoginResponse> LoginAsync(LoginRequest request)
         {
-            string role;
-            if (customer.PhoneNumber.Equals(_config["AdminAccount:PhoneNumber"]) && customer.Password.Equals(_config["AdminAccount:Password"]))
-                role = "admin";
-            else role = "customer";
+            #region checkPhone
+            var check = CheckPhone(request.Phone);
+            if (check)
+            {
+                if (!request.Phone.StartsWith("+84"))
+                {
+                    request.Phone = request.Phone.TrimStart(new char[] { '0' });
+                    request.Phone = "+84" + request.Phone;
+                }
+            }
+            else
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Wrong Phone Format", request.Phone.ToString());
+            }
+            #endregion
+            var user = await _unitOfWork.Repository<User>().GetUserByPhoneAndPassword(request.Phone, request.Password);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_config["ApiSetting:Secret"]);
+            IConfigurationSection jwtConfigSection = _config.GetSection("JWTSecretKey");
 
-            return null;
+            string secretKeyConfig = jwtConfigSection["SecretKey"];
+            DateTime secretKeyDateTime = DateTime.Parse(secretKeyConfig);
+
+            var refreshToken = RefreshTokenString.GetRefreshToken();
+            var accessToken = user.GenerateJsonWebToken(_config, secretKeyDateTime);
+            var expireAccessTokenTime = DateTime.Now.AddHours(24);
+
+            var loginResponse = new UserLoginResponse
+            {
+                UserId = user.UserId,
+                Name = user.Name,
+                Role = user.Role,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+            };
+
+            return loginResponse;
         }
-        public Task<UserResponse> Login(LoginRequest request)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<UserResponse> UpdateCustomer(int customerId, CustomerRequest request)
+
+        public async Task<UserResponse> UpdateCustomer(int customerId, CustomerRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User user = null;
+                user = _unitOfWork.Repository<User>().Find(u => u.UserId == customerId);
+                if (user == null)
+                {
+                    throw new CrudException(HttpStatusCode.NotFound, "Not found user with that id", customerId.ToString());
+                }
+                _mapper.Map<CustomerRequest, User>(request, user);
+                await _unitOfWork.Repository<User>().Update(user, customerId);
+                await _unitOfWork.CommitAsync();
+                return _mapper.Map<User, UserResponse>(user);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Update User Error", ex.Message);
+            }
         }
     }
 }
