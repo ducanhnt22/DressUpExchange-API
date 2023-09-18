@@ -24,5 +24,7 @@ namespace DressUpExchange.Data.Repository
         Task<T> GetById(int id);
         Task Update(T entity, int Id);
         Task<User> GetUserByPhoneAndPassword(string phone, string password);
+        IQueryable<T> Where(Expression<Func<T, bool>> predicate);
+
     }
 }

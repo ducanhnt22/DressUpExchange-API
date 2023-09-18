@@ -84,5 +84,10 @@ namespace DressUpExchange.Data.Repository
         {
             return await Table.ToListAsync();
         }
+
+        public IQueryable<T> Where(Expression<Func<T, bool>> predicate)
+        {
+            return Table.Where(predicate);
+        }
     }
 }

@@ -26,6 +26,7 @@ namespace DressUpExchange.Data.Entity
 
         [NotMapped]
         public string? RefreshToken { get; set; }
+        [NotMapped]
         public DateTime? ExpireTokenTime { get; set; }
 
         public virtual ICollection<Notification> Notifications { get; set; }

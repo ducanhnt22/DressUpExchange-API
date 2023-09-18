@@ -24,7 +24,7 @@ namespace DressUpExchange.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<UserResponse>> GetCustomer(int id)
         {
-            var result = await GetCustomer(id);
+            var result = await _customerService.GetCustomerById(id);
             return Ok(result);
         }
         [HttpPost("login")]
