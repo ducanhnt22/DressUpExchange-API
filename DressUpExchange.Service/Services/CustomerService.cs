@@ -31,6 +31,10 @@ namespace DressUpExchange.Service.Services
         Task<UserLoginResponse> LoginAsync(LoginRequest request);
         Task<UserResponse> GetCustomerById(int id);
         Task<UserResponse> UpdateCustomer(int customerId, CustomerRequest request);
+        Task<UserResponse> RegisterAsync(RegisterRequest request);
+        Task<UserResponse> UpdateAsync(int id, UserRequest request);
+        Task<RefreshTokenResponse> RefreshTokenAsync(string refreshToken);
+
     }
     public class CustomerService : ICustomerService
     {
@@ -247,6 +251,69 @@ namespace DressUpExchange.Service.Services
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Update User Error", ex.Message);
             }
+        }
+
+        public async Task<UserResponse> RegisterAsync(RegisterRequest request)
+        {
+            if (!IsUniqueUser(request.PhoneNumber))
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Phone number already registered", request.PhoneNumber);
+            }
+
+            var check = CheckPhone(request.PhoneNumber);
+            if (!check)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Phone number is not formatted", request.PhoneNumber);
+            }
+
+            var newUser = new User
+            {
+                PhoneNumber = request.PhoneNumber,
+                Password = request.Password,
+                Name = request.Name,
+                Address = request.Address,
+                Role = request.Role,
+                Status = "True"
+            };
+
+            await _unitOfWork.Repository<User>().CreateAsync(newUser);
+            await _unitOfWork.CommitAsync();
+
+            return _mapper.Map<UserResponse>(newUser);
+        }
+
+        public async Task<UserResponse> UpdateAsync(int id, UserRequest request)
+        {
+            try
+            {
+                var user = await _unitOfWork.Repository<User>().GetAsync(u => u.UserId == id);
+
+                if (user == null)
+                {
+                    throw new CrudException(HttpStatusCode.NotFound, "User not found", id.ToString());
+                }
+
+                user.Name = request.Name;
+                user.Password = request.Password;
+                user.Address = request.Address;
+
+                await _unitOfWork.CommitAsync();
+
+                return _mapper.Map<UserResponse>(user);
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Update User Error", ex.Message);
+            }
+        }
+
+        public Task<RefreshTokenResponse> RefreshTokenAsync(string refreshToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

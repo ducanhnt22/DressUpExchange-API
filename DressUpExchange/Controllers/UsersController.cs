@@ -33,5 +33,17 @@ namespace DressUpExchange.API.Controllers
             var rs = await _customerService.LoginAsync(model);
             return Ok(rs);
         }
+        [HttpPost("register")]
+        public async Task<ActionResult<UserResponse>> Register([FromBody] RegisterRequest model)
+        {
+            var rs = await _customerService.RegisterAsync(model);
+            return Ok(rs);
+        }
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<UserResponse>> EditProfile(int id, [FromBody] UserRequest request)
+        {
+            var rs = await _customerService.UpdateAsync(id, request);
+            return Ok(rs);
+        }
     }
 }
