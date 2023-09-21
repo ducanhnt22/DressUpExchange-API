@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DressUpExchange.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DressUpExchange.API.Controllers
