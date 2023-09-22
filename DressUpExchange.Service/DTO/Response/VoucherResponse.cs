@@ -11,5 +11,7 @@ namespace DressUpExchange.Service.DTO.Response
          public int? total { get; set; }
 
         public  List<VoucherDetailResponse> vouchers { get; set; }
+
+       
     }
 }

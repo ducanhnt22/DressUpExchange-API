@@ -11799,11 +11799,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
+      "projectUniqueName": "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
       "projectName": "DressUpExchange.API",
-      "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
+      "projectPath": "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
       "packagesPath": "C:\\Users\\manda\\.nuget\\packages\\",
-      "outputPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\obj\\",
+      "outputPath": "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\manda\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -11821,8 +11821,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
-              "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj"
+            "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
+              "projectPath": "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj"
             }
           }
         }
