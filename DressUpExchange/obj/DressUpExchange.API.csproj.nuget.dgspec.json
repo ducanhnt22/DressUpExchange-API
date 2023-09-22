@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\DressUpExchange\\DressUpExchange\\DressUpExchange.API.csproj": {}
+    "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj": {}
   },
   "projects": {
-    "D:\\DressUpExchange\\Data\\DressUpExchange.Data.csproj": {
+    "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DressUpExchange\\Data\\DressUpExchange.Data.csproj",
+        "projectUniqueName": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
         "projectName": "DressUpExchange.Data",
-        "projectPath": "D:\\DressUpExchange\\Data\\DressUpExchange.Data.csproj",
-        "packagesPath": "C:\\Users\\Duc Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\DressUpExchange\\Data\\obj\\",
+        "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
+        "packagesPath": "C:\\Users\\manda\\.nuget\\packages\\",
+        "outputPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Duc Anh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\manda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -122,25 +117,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.308\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\DressUpExchange\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
+    "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DressUpExchange\\DressUpExchange.Service\\DressUpExchange.Service.csproj",
+        "projectUniqueName": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj",
         "projectName": "DressUpExchange.Service",
-        "projectPath": "D:\\DressUpExchange\\DressUpExchange.Service\\DressUpExchange.Service.csproj",
-        "packagesPath": "C:\\Users\\Duc Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\DressUpExchange\\DressUpExchange.Service\\obj\\",
+        "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj",
+        "packagesPath": "C:\\Users\\manda\\.nuget\\packages\\",
+        "outputPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Duc Anh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\manda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -148,15 +139,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\DressUpExchange\\Data\\DressUpExchange.Data.csproj": {
-                "projectPath": "D:\\DressUpExchange\\Data\\DressUpExchange.Data.csproj"
+              "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj": {
+                "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj"
               }
             }
           }
@@ -248,25 +238,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.308\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\DressUpExchange\\DressUpExchange\\DressUpExchange.API.csproj": {
+    "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\DressUpExchange\\DressUpExchange\\DressUpExchange.API.csproj",
+        "projectUniqueName": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
         "projectName": "DressUpExchange.API",
-        "projectPath": "D:\\DressUpExchange\\DressUpExchange\\DressUpExchange.API.csproj",
-        "packagesPath": "C:\\Users\\Duc Anh\\.nuget\\packages\\",
-        "outputPath": "D:\\DressUpExchange\\DressUpExchange\\obj\\",
+        "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
+        "packagesPath": "C:\\Users\\manda\\.nuget\\packages\\",
+        "outputPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Duc Anh\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\manda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -274,15 +260,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.308\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\DressUpExchange\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
-                "projectPath": "D:\\DressUpExchange\\DressUpExchange.Service\\DressUpExchange.Service.csproj"
+              "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj": {
+                "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj"
               }
             }
           }
@@ -389,7 +375,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.308\\RuntimeIdentifierGraph.json"
         }
       }
     }
