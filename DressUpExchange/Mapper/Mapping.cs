@@ -16,8 +16,8 @@ namespace DressUpExchange.API.Mapper
             CreateMap<RegisterRequest, User>().ReverseMap();
             CreateMap<VoucherRequest, Voucher>()
                 .ForMember(dex => dex.UserId, opt => opt.MapFrom(src => src.UserId))
-            .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dex => dex.Code, opt => opt.MapFrom(src => src.Code))
+                 .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
+                 .ForMember(dex => dex.Code, opt => opt.MapFrom(src => src.Code))
             .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
             .ForMember(dex => dex.RemainingCount, opt => opt.MapFrom(src => src.RemainingCount))
             .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.ExpireDate))
@@ -30,6 +30,8 @@ namespace DressUpExchange.API.Mapper
                 .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.discountAmount))
                 .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.expireDate))
                 .ReverseMap();
+
+       
 
         }
     }
