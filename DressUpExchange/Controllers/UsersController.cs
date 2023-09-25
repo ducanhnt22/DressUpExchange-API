@@ -1,7 +1,11 @@
 ﻿using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.Exceptions;
 using DressUpExchange.Service.Services;
+using Google.Apis.Auth.OAuth2.Requests;
 using Microsoft.AspNetCore.Mvc;
+using NTQ.Sdk.Core.Filters;
+using System.Net;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -44,6 +48,29 @@ namespace DressUpExchange.API.Controllers
         {
             var rs = await _customerService.UpdateAsync(id, request);
             return Ok(rs);
+        }
+        [HttpPost("RefreshToken")]
+        public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(string refreshToken)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(refreshToken))
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Refresh token is required", "Please provide a valid refresh token.");
+                }
+
+                var refreshTokenResponse = await _customerService.RefreshTokenAsync(refreshToken);
+
+                return Ok(refreshTokenResponse);
+            }
+            catch (CrudException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
     }
 }

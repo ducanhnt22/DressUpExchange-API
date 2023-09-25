@@ -23,8 +23,6 @@ namespace DressUpExchange.Data.Entity
         public string? Address { get; set; }
         public string? Role { get; set; }
         public string? Status { get; set; }
-
-        [NotMapped]
         public string? RefreshToken { get; set; }
         [NotMapped]
         public DateTime? ExpireTokenTime { get; set; }
