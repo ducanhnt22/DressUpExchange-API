@@ -14,6 +14,20 @@ namespace DressUpExchange.API.Mapper
             CreateMap<User, UserResponse>().ReverseMap();
             CreateMap<CustomerRequest, UserResponse>().ReverseMap();
             CreateMap<RegisterRequest, User>().ReverseMap();
+
+            CreateMap<Product, ProductRequest>().ReverseMap();
+            CreateMap<Product, ProductGetRequest>().ReverseMap();
+            CreateMap<Product, ProductResponse>()
+                .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.ProductImages))
+                .ReverseMap();
+
+            CreateMap<ProductGetRequest, ProductResponse>()
+                .ReverseMap();
+            CreateMap<ProductRequest, ProductResponse>().ReverseMap();
+            CreateMap<ProductImage, ProductImageRequest>().ReverseMap();
+
+            CreateMap<Category, CategoryResponse>().ReverseMap();
+
             CreateMap<VoucherRequest, Voucher>()
                 .ForMember(dex => dex.UserId, opt => opt.MapFrom(src => src.UserId))
                  .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
@@ -32,7 +46,6 @@ namespace DressUpExchange.API.Mapper
                 .ReverseMap();
 
 
-
-        }
+            }
     }
 }

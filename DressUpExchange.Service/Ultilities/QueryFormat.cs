@@ -56,5 +56,22 @@ namespace DressUpExchange.Service.Ultilities
 
         }
 
+        public static async Task<List<FeedbackDetailResponse>> GetFeedbackResponseAsync(this int productID)
+        {
+            var response =  (from productfeedback  in _context.ProductFeedbacks
+                            join user in _context.Users on productfeedback.UserId equals user.UserId    
+                            where productfeedback.ProductId == productID
+                             select new FeedbackDetailResponse
+                             {
+                                 comment = productfeedback.Comment,
+                                 feedBackId =  productfeedback.FeedbackId,
+                                 rating = (int)productfeedback.Rating,
+                                 userName = user.Name
+
+                             }).ToList();
+            return response;
+        
+        }
+
     }
 }

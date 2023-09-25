@@ -7,6 +7,7 @@ using DressUpExchange.Service.DTO.Response;
 using DressUpExchange.Service.Exceptions;
 using DressUpExchange.Service.Helpers;
 using DressUpExchange.Service.Ultilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace DressUpExchange.Service.Services
 {
     public interface IProductService
     {
-        Task<PagedResult<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging);
+        Task<PagedResult<ProductResponse>> GetProducts(ProductGetRequest request, PagingRequest paging);
         Task<ProductResponse> DeleteProduct(int id);
         Task<ProductResponse> CreateProduct(ProductRequest request);
         Task<ProductResponse> GetProductById(int id);
@@ -26,16 +27,13 @@ namespace DressUpExchange.Service.Services
     }
     public class ProductService : IProductService
     {
-        private readonly IProductService _productService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public ProductService(IProductService productService, IMapper mapper, IUnitOfWork unitOfWork)
+        public ProductService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            _productService = productService;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
-
         public async Task<ProductResponse> CreateProduct(ProductRequest product)
         {
             try
@@ -46,10 +44,23 @@ namespace DressUpExchange.Service.Services
                 }
 
                 var p = _mapper.Map<Product>(product);
-                _unitOfWork.Repository<Product>().CreateAsync(p);
-                await _unitOfWork.CommitAsync();
-                return _mapper.Map<Product, ProductResponse>(p);
+                p.CategoryId = product.CategoryId;
 
+                await _unitOfWork.Repository<Product>().CreateAsync(p);
+                await _unitOfWork.CommitAsync();
+
+                if (product.Images != null && product.Images.Any())
+                {
+                    foreach (var imageRequest in product.Images)
+                    {
+                        var productImage = _mapper.Map<ProductImage>(imageRequest);
+                        productImage.ProductId = p.ProductId;
+                        await _unitOfWork.Repository<ProductImage>().CreateAsync(productImage);
+                    }
+
+                    await _unitOfWork.CommitAsync();
+                }
+                return _mapper.Map<Product, ProductResponse>(p);
             }
             catch (CrudException ex)
             {
@@ -85,7 +96,6 @@ namespace DressUpExchange.Service.Services
                 throw new CrudException(HttpStatusCode.BadRequest, "Delete Product Error!!!", ex.InnerException?.Message);
             }
         }
-
         public async Task<ProductResponse> GetProductById(int id)
         {
             try
@@ -94,7 +104,10 @@ namespace DressUpExchange.Service.Services
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Id Product Invalid", "");
                 }
-                var response = await _unitOfWork.Repository<Product>().GetAsync(p => p.ProductId == id);
+
+                var response = await _unitOfWork.Repository<Product>()
+                    .Include(p => p.ProductImages)
+                    .SingleOrDefaultAsync(p => p.ProductId == id);
 
                 if (response == null)
                 {
@@ -113,15 +126,18 @@ namespace DressUpExchange.Service.Services
             }
         }
 
-        public Task<PagedResult<ProductResponse>> GetProducts(ProductRequest request, PagingRequest paging)
+        public Task<PagedResult<ProductResponse>> GetProducts(ProductGetRequest request, PagingRequest paging)
         {
             try
             {
                 var filter = _mapper.Map<ProductResponse>(request);
-                var products = _unitOfWork.Repository<Product>().GetAll()
-                                           .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
-                                           .DynamicFilter(filter)
-                                           .ToList();
+                var products = _unitOfWork.Repository<Product>()
+                    .GetAll()
+                    .Include(p => p.ProductImages)
+                    .Include(p => p.Category)
+                    .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                    .DynamicFilter(filter)
+                    .ToList();
                 var sort = PageHelper<ProductResponse>.Sorting(paging.SortType, products, paging.ColName);
                 var result = PageHelper<ProductResponse>.Paging(sort, paging.Page, paging.PageSize);
                 return Task.FromResult(result);
@@ -136,8 +152,9 @@ namespace DressUpExchange.Service.Services
         {
             try
             {
-                Product product = _unitOfWork.Repository<Product>()
-                     .Find(p => p.ProductId == id);
+                Product product = await _unitOfWork.Repository<Product>()
+                    .Include(p => p.ProductImages)
+                    .SingleOrDefaultAsync(p => p.ProductId == id);
 
                 if (product == null)
                 {
@@ -146,7 +163,17 @@ namespace DressUpExchange.Service.Services
 
                 _mapper.Map<ProductRequest, Product>(request, product);
 
-                await _unitOfWork.Repository<Product>().Update(product, id);
+                if (request.Images != null && request.Images.Any())
+                {
+                    product.ProductImages.Clear();
+
+                    foreach (var imageRequest in request.Images)
+                    {
+                        var productImage = _mapper.Map<ProductImage>(imageRequest);
+                        product.ProductImages.Add(productImage);
+                    }
+                }
+
                 await _unitOfWork.CommitAsync();
                 return _mapper.Map<Product, ProductResponse>(product);
             }
@@ -159,5 +186,6 @@ namespace DressUpExchange.Service.Services
                 throw new Exception(e.Message);
             }
         }
+
     }
 }
