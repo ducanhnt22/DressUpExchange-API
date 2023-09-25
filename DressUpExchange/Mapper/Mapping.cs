@@ -30,8 +30,15 @@ namespace DressUpExchange.API.Mapper
                 .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.discountAmount))
                 .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.expireDate))
                 .ReverseMap();
+            CreateMap<FeedbackRequest, ProductFeedback>()
+                .ForMember(dex => dex.UserId, opt => opt.MapFrom(src => src.UserID))
+                .ForMember(dex => dex.Comment, opt => opt.MapFrom(src => src.Comment))
+                .ForMember(dex => dex.Rating, opt => opt.MapFrom(src => src.Rating))
+                .ReverseMap();
 
-       
+            
+
+
 
         }
     }
