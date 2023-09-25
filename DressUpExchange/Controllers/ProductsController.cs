@@ -9,7 +9,7 @@ namespace DressUpExchange.API.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProductService _productService;   
         public ProductsController(IProductService productService)
         {
             _productService = productService;

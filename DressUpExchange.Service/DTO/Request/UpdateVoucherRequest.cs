@@ -12,7 +12,7 @@ namespace DressUpExchange.Service.DTO.Request
     
         public string? newCode { get; set; }
 
-        public string? newDismountAmount { get; set; }
+        public decimal? newDismountAmount { get; set; }
 
         public int newTotal { get;set; }
 

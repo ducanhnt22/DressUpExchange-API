@@ -8,7 +8,7 @@ namespace DressUpExchange.Service.DTO.Response
 {
     public class VoucherDetailResponse
     {
-        public Guid voucherId { get; set; }
+        public int voucherId { get; set; }
 
         public string? voucherName { get; set;}
 

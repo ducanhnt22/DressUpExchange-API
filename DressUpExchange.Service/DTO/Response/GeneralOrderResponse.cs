@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace DressUpExchange.Service.DTO.Response
 {
-    public class VoucherResponse
+    public class GeneralOrderResponse
     {
-         public int? total { get; set; }
+        public int total { get; set; }
 
-        public  List<VoucherDetailResponse> vouchers { get; set; }
+        public List<OrderResponse>?  orderResponses { get; set; } 
 
-       
     }
 }
