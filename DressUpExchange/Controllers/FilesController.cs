@@ -18,8 +18,16 @@ namespace DressUpExchange.API.Controllers
         {
             if (file.Length > MAX_UPLOAD_FILE_SIZE)
                 return BadRequest("Exceed 25MB");
-            string url = await _fileStorageService.UploadFileToDefaultAsync(file.OpenReadStream(), file.FileName);
+            //string url = await _fileStorageService.UploadFileToDefaultAsync(file.OpenReadStream(), file.FileName);
+            string url = await _fileStorageService.UploadFileToDefaultAsyncV2(file, "picture");
             return Ok(url);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> DeleteFile(string fileName)
+        {
+            await _fileStorageService.DeleteFileByName(fileName);
+            return Ok("Delete File sucessfully");
         }
     }
 }

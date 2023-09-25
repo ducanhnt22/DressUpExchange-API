@@ -1,5 +1,7 @@
-﻿using Firebase.Auth;
+﻿using DressUpExchange.Service.Ultilities;
+using Firebase.Auth;
 using Firebase.Storage;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,9 @@ namespace DressUpExchange.Service.Services
     public interface IFileStorageService
     {
         Task<string> UploadFileToDefaultAsync(Stream fileStream, string fileName);
+        Task<string> UploadFileToDefaultAsyncV2(IFormFile fileStream, string folderName);
+
+        Task<bool> DeleteFileByName(string fileName);
     }
     public class FirebaseStorageService : IFileStorageService
     {
@@ -50,6 +55,18 @@ namespace DressUpExchange.Service.Services
             {
                 return null;
             }
+        }
+
+        public async Task<string> UploadFileToDefaultAsyncV2(IFormFile fileStream, string folderName)
+        {
+            FireBaseFile fireBaseFile = await FileUtils.UploadFileAsync(fileStream, "picture");
+            return fireBaseFile.URL.ToString();
+        }
+
+        public async Task<bool> DeleteFileByName(string fileName)
+        {
+            await FileUtils.RemoveFileAsync(fileName, "picture");
+            return true;
         }
     }
 }
