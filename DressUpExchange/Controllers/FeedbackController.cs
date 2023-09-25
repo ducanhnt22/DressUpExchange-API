@@ -18,7 +18,13 @@ namespace DressUpExchange.API.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateFeedback(int id, FeedbackRequest feedbackRequest)
         {
-            await _feedbackService.AddNewFeedback(id, feedbackRequest);
+            if (ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+           bool check = await _feedbackService.AddNewFeedback(id, feedbackRequest);
+            
             return Ok("Create Feedback Sucessfully");
         }
 
