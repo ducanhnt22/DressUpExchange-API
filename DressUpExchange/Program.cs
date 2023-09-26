@@ -8,6 +8,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Text;
+using DressUpExchange.Service.DTO.State;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -102,6 +107,8 @@ app.Use((context, next) =>
     context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
     return next.Invoke();
 });
+
+
 app.UseCors();
 
 app.UseRouting();
@@ -114,3 +121,6 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+

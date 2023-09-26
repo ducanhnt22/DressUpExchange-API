@@ -1,6 +1,8 @@
 ﻿using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DressUpExchange.API.Controllers
@@ -15,6 +17,7 @@ namespace DressUpExchange.API.Controllers
         {
             _feedbackService = feedbackService;
         }
+        [Authorize(Roles =RoleNames.Customer)]
         [HttpPost]
         public async Task<ActionResult> CreateFeedback(int id, FeedbackRequest feedbackRequest)
         {
@@ -28,6 +31,7 @@ namespace DressUpExchange.API.Controllers
             return Ok("Create Feedback Sucessfully");
         }
 
+        [Authorize(Roles =RoleNames.Customer)]
         [HttpPut]
         public async Task<ActionResult> UpdateFeedback(int id, FeedbackRequest feedbackRequest)
         {
@@ -36,7 +40,7 @@ namespace DressUpExchange.API.Controllers
             return Ok("Update Feedback Sucessfully");
         }
 
-
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpDelete]
         public async Task<ActionResult> DeleteFeedback(int id)
         {
@@ -44,7 +48,7 @@ namespace DressUpExchange.API.Controllers
             return Ok("Delete Feedback Sucessfully");
         }
 
-
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpGet]
         public async Task<ActionResult<FeedbackResponse>> GetAction(int id)
         {

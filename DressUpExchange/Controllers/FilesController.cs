@@ -1,5 +1,8 @@
-﻿using DressUpExchange.Service.Services;
+﻿using DressUpExchange.Service.DTO.State;
+using DressUpExchange.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -13,6 +16,7 @@ namespace DressUpExchange.API.Controllers
         {
             _fileStorageService = fileStorageService;
         }
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost]
         public async Task<ActionResult<string>> UploadFile(IFormFile file)
         {
@@ -22,7 +26,7 @@ namespace DressUpExchange.API.Controllers
             string url = await _fileStorageService.UploadFileToDefaultAsyncV2(file, "picture");
             return Ok(url);
         }
-
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpDelete]
         public async Task<ActionResult> DeleteFile(string fileName)
         {

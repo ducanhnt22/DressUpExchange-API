@@ -1,7 +1,10 @@
 ﻿using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -14,12 +17,15 @@ namespace DressUpExchange.API.Controllers
         {
             _productService = productService;
         }
+
+        
         [HttpGet]
         public async Task<ActionResult<List<ProductResponse>>> GetProducts([FromQuery] PagingRequest pagingRequest, [FromQuery] ProductGetRequest productRequest)
         {
             var rs = await _productService.GetProducts(productRequest, pagingRequest);
             return Ok(rs);
         }
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductResponse>> GetProduct(int id)
         {
@@ -27,6 +33,8 @@ namespace DressUpExchange.API.Controllers
             return Ok(rs);
         }
 
+
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPut("{id:int}")]
         public async Task<ActionResult<ProductResponse>> UpdateProduct([FromBody] ProductRequest productRequest, int id)
         {
@@ -37,7 +45,7 @@ namespace DressUpExchange.API.Controllers
                 message = "Thông tin sản phẩm đã được cập nhật!"
             });
         }
-
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost()]
         public async Task<ActionResult<ProductResponse>> CreateProduct([FromBody] ProductRequest model)
         {

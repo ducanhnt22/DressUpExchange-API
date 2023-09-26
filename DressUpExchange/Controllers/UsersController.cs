@@ -1,5 +1,6 @@
 ﻿using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Exceptions;
 using DressUpExchange.Service.Services;
 using Google.Apis.Auth.OAuth2.Requests;
@@ -11,6 +12,7 @@ using System.Net;
 
 namespace DressUpExchange.API.Controllers
 {
+    
     [Route("api/user")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -22,7 +24,7 @@ namespace DressUpExchange.API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleNames.Admin)]
         public async Task<ActionResult<List<UserResponse>>> GetCustomer([FromQuery] PagingRequest pagingRequest, [FromQuery] CustomerRequest customerRequest)
         {
             var result = await _customerService.GetCustomers(customerRequest, pagingRequest);
