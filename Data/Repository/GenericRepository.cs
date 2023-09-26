@@ -89,5 +89,20 @@ namespace DressUpExchange.Data.Repository
         {
             return Table.Where(predicate);
         }
+        public IQueryable<T> Include(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = Table;
+
+            if (includes != null)
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+            return query;
+        }
+        public async Task<T> GetSingleAsync(Expression<Func<T, bool>> filter)
+        {
+            return await Table.SingleOrDefaultAsync(filter);
+        }
+
     }
 }

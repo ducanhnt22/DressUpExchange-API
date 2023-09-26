@@ -159,6 +159,8 @@ namespace DressUpExchange.Service.Services
             string secretKeyConfig = _config["JWTSecretKey:SecretKey"];
             DateTime secretKeyDateTime = DateTime.UtcNow;
             string refreshToken = RefreshTokenString.GetRefreshToken();
+            user.RefreshToken = refreshToken;
+            await UpdateUserWithRefreshToken(user);
             string accessToken;
 
             if (user.Role == "Admin")
@@ -171,6 +173,12 @@ namespace DressUpExchange.Service.Services
                 accessToken = GenerateUserJsonWebToken(user, secretKeyConfig, secretKeyDateTime);
                 return CreateLoginResponse(user.UserId, user.Name, user.Role, accessToken, refreshToken);
             }
+        }
+
+        private async Task UpdateUserWithRefreshToken(User user)
+        {
+            _unitOfWork.Repository<User>().Update(user, user.UserId);
+            await _unitOfWork.CommitAsync();
         }
 
         private UserLoginResponse CreateLoginResponse(int userId, string name, string role, string accessToken, string refreshToken)
@@ -187,7 +195,6 @@ namespace DressUpExchange.Service.Services
 
         private string GenerateAdminJsonWebToken(string secretKey, DateTime now)
         {
-            // Generate a JWT for the admin.
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
@@ -209,7 +216,6 @@ namespace DressUpExchange.Service.Services
 
         private string GenerateUserJsonWebToken(User user, string secretKey, DateTime now)
         {
-            // Generate a JWT for a regular user.
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
@@ -311,9 +317,41 @@ namespace DressUpExchange.Service.Services
             }
         }
 
-        public Task<RefreshTokenResponse> RefreshTokenAsync(string refreshToken)
+        public async Task<RefreshTokenResponse> RefreshTokenAsync(string refreshToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _unitOfWork.Repository<User>()
+                    .Where(u => u.RefreshToken == refreshToken)
+                    .FirstOrDefaultAsync();
+
+                if (user == null)
+                {
+                    throw new CrudException(HttpStatusCode.BadRequest, "Invalid refresh token", "Refresh token is invalid.");
+                }
+
+                string newRefreshToken = RefreshTokenString.GetRefreshToken();
+                string secretKeyConfig = _config["JWTSecretKey:SecretKey"];
+                DateTime secretKeyDateTime = DateTime.UtcNow;
+                string newAccessToken = GenerateUserJsonWebToken(user, secretKeyConfig, secretKeyDateTime);
+
+                user.RefreshToken = newRefreshToken;
+                await UpdateUserWithRefreshToken(user);
+
+                return new RefreshTokenResponse
+                {
+                    AccessToken = newAccessToken,
+                    RefreshToken = newRefreshToken
+                };
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Refresh Token Error", ex.Message);
+            }
         }
     }
 }

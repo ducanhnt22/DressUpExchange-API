@@ -15,7 +15,7 @@ namespace DressUpExchange.API.Controllers
             _productService = productService;
         }
         [HttpGet]
-        public async Task<ActionResult<List<ProductResponse>>> GetProducts([FromQuery] PagingRequest pagingRequest, [FromQuery] ProductRequest productRequest)
+        public async Task<ActionResult<List<ProductResponse>>> GetProducts([FromQuery] PagingRequest pagingRequest, [FromQuery] ProductGetRequest productRequest)
         {
             var rs = await _productService.GetProducts(productRequest, pagingRequest);
             return Ok(rs);
@@ -32,21 +32,20 @@ namespace DressUpExchange.API.Controllers
         {
             var rs = await _productService.UpdateProduct(id, productRequest);
             if (rs == null) return NotFound();
-            return Ok(rs);
+            return Ok(new
+            {
+                message = "Thông tin sản phẩm đã được cập nhật!"
+            });
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<ProductResponse>> DeleteProduct(int id)
-        {
-            var rs = await _productService.DeleteProduct(id);
-            if (rs == null) return NotFound();
-            return Ok(rs);
-        }
         [HttpPost()]
-        public async Task<ActionResult<UserResponse>> CreateProduct([FromBody] ProductRequest model)
+        public async Task<ActionResult<ProductResponse>> CreateProduct([FromBody] ProductRequest model)
         {
             var rs = await _productService.CreateProduct(model);
-            return Ok(rs);
+            return Ok(new
+            {
+                message = "Đăng bán sản phẩm thành công!"
+            });
         }
     }
 }

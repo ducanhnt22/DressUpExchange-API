@@ -7997,11 +7997,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
+      "projectUniqueName": "C:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
       "projectName": "DressUpExchange.Data",
-      "projectPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
+      "projectPath": "C:\\Code\\EXE_API\\DressUpExchange-API\\Data\\DressUpExchange.Data.csproj",
       "packagesPath": "C:\\Users\\manda\\.nuget\\packages\\",
-      "outputPath": "c:\\Code\\EXE_API\\DressUpExchange-API\\Data\\obj\\",
+      "outputPath": "C:\\Code\\EXE_API\\DressUpExchange-API\\Data\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\manda\\AppData\\Roaming\\NuGet\\NuGet.Config",

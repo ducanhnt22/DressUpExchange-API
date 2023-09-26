@@ -224,6 +224,10 @@ namespace DressUpExchange.Data.Entity
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.Property(e => e.RefreshToken)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<UserSavedVoucher>(entity =>
