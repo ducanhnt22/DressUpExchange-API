@@ -4,6 +4,7 @@ using DressUpExchange.Data.UnitOfWork;
 using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
 using DressUpExchange.Service.DTO.State;
+using DressUpExchange.Service.Helpers;
 using DressUpExchange.Service.Ultilities;
 using System;
 using System.Collections.Generic;
@@ -16,15 +17,16 @@ namespace DressUpExchange.Service.Services
     public interface IOrderService
     {
         Task<bool> AddNewOrder(OrderRequest orderRequest);
-        Task<GeneralOrderResponse> GetOrderByCustomer(int userID);
+        Task<GeneralOrderResponse> GetOrderByCustomer(int userID,OrderPagingRequest orderPaging);
     }
     public class OrderService : IOrderService
     {
-       
+        private static IClaimsService _claimService;
         private static IUnitOfWork _unitOfWork;
-        public OrderService(IUnitOfWork unitOfWork)
+        public OrderService(IUnitOfWork unitOfWork,IClaimsService claimsService)
         {
             _unitOfWork = unitOfWork;
+            _claimService = claimsService;
         }
 
         public async Task<bool> AddNewOrder(OrderRequest orderRequest)
@@ -37,7 +39,7 @@ namespace DressUpExchange.Service.Services
                 TotalAmount = orderRequest.TotalAmount,
                 OrderDate = dateTime,
                 Status = orderRequest.Status,
-                UserId = orderRequest.UserId
+                UserId = _claimService.GetCurrentUserId
             };
 
             await _unitOfWork.Repository<Order>().CreateAsync(order);
@@ -61,9 +63,10 @@ namespace DressUpExchange.Service.Services
 
         }
 
-        public async Task<GeneralOrderResponse> GetOrderByCustomer(int userID)
+        public async Task<PagedResult<GeneralOrderResponse>> GetOrderByCustomer(int userID, OrderPagingRequest orderPaging)
         {
-            GeneralOrderResponse generalOrderResponse = await QueryFormat.getOrder(userID);
+            var generalOrderResponse = await QueryFormat.getOrder(userID,orderPaging.Status);
+            var result = PageHelper<GeneralOrderResponse>.Paging(generalOrderResponse, orderPaging.Page, orderPaging.PageSize);
             
             return generalOrderResponse;
                                     
