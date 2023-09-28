@@ -222,6 +222,7 @@ namespace DressUpExchange.Service.Services
             {
                 new Claim(ClaimTypes.NameIdentifier, user.PhoneNumber),
                 new Claim("userId", user.UserId.ToString()),
+                new Claim(ClaimTypes.Role, "User"),
             };
 
             var token = new JwtSecurityToken(

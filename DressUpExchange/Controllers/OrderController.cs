@@ -1,8 +1,11 @@
 ﻿using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -15,6 +18,8 @@ namespace DressUpExchange.API.Controllers
         {
             _orderService = orderService;
         }
+
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<GeneralOrderResponse>> GetOrder(int id)
         {
@@ -23,7 +28,7 @@ namespace DressUpExchange.API.Controllers
 
 
         }
-
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost]
         public async Task<ActionResult> CreateOrder(OrderRequest orderRequest)
         {
