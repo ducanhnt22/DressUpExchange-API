@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Net;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -14,15 +15,25 @@ namespace DressUpExchange.API.Controllers
     public class VoucherController : ControllerBase
     {
         private readonly IVourcherService _voucherService;
-        public VoucherController(IVourcherService vourcherService)
+        private readonly IClaimsService _claimsService;
+        public VoucherController(IVourcherService vourcherService, IClaimsService claimsService)
         {
             _voucherService = vourcherService;
+            _claimsService = claimsService;
         }
 
         [Authorize(Roles = RoleNames.Customer)]
         [HttpPost("CreateVoucher")]
         public async Task<ActionResult> CreateVoucher(int ProductID, [FromBody] VoucherRequest voucherRequest)
         {
+            var userId = _claimsService.GetCurrentUserId;
+            if (userId == null)
+            {
+                return StatusCode(401);
+            } else
+            {
+                voucherRequest.UserId = userId;
+            }
             await _voucherService.CreateNewVoucher(ProductID, voucherRequest);
             return Ok("Create Voucher Successfully");
         }
