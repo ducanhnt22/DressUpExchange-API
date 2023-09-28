@@ -63,10 +63,10 @@ namespace DressUpExchange.Service.Services
 
         }
 
-        public async Task<PagedResult<GeneralOrderResponse>> GetOrderByCustomer(int userID, OrderPagingRequest orderPaging)
+        public async Task<GeneralOrderResponse> GetOrderByCustomer(int userID, OrderPagingRequest orderPaging)
         {
-            var generalOrderResponse = await QueryFormat.getOrder(userID,orderPaging.Status);
-            var result = PageHelper<GeneralOrderResponse>.Paging(generalOrderResponse, orderPaging.Page, orderPaging.PageSize);
+            var generalOrderResponse = await QueryFormat.getOrder(userID,orderPaging.Status,orderPaging.Page,orderPaging.PageSize);
+   
             
             return generalOrderResponse;
                                     
