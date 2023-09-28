@@ -11,6 +11,8 @@ namespace DressUpExchange.Service.DTO.Request
 {
     public class ProductRequest
     {
+        [JsonIgnore]
+        public int? UserId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }

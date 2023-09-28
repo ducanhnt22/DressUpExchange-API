@@ -13,9 +13,11 @@ namespace DressUpExchange.API.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;   
-        public ProductsController(IProductService productService)
+        private readonly IClaimsService _claimsService;
+        public ProductsController(IProductService productService, IClaimsService claimsService)
         {
             _productService = productService;
+            _claimsService = claimsService;
         }
 
         
@@ -45,10 +47,16 @@ namespace DressUpExchange.API.Controllers
                 message = "Thông tin sản phẩm đã được cập nhật!"
             });
         }
-        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost()]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<ProductResponse>> CreateProduct([FromBody] ProductRequest model)
         {
+            int id = _claimsService.GetCurrentUserId;
+            if (id != null)
+            {
+                model.UserId = id;
+            }
+            else return StatusCode(401);
             var rs = await _productService.CreateProduct(model);
             return Ok(new
             {

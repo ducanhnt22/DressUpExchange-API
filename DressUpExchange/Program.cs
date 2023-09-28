@@ -22,6 +22,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IFileStorageService, FirebaseStorageService>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IVourcherService, VoucherService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
