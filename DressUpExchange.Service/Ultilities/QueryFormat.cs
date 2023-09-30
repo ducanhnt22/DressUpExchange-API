@@ -1,4 +1,6 @@
-﻿using DressUpExchange.Data.Entity;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using DressUpExchange.Data.Entity;
 using DressUpExchange.Service.DTO.Response;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,13 +14,15 @@ namespace DressUpExchange.Service.Ultilities
     public static class QueryFormat
     {
          private static DressUpExchanceContext _context = new DressUpExchanceContext();
-        
-        public static  async Task<GeneralOrderResponse> getOrder(this int customerId)
+       
+      
+
+        public static  async Task<GeneralOrderResponse> getOrder(this int customerId,string status,int page,int pageSize)
         {
             var response =  await (from order in _context.Orders
                            join orderitem in _context.OrderItems on order.OrderId equals orderitem.OrderId
                            join product in _context.Products on orderitem.ProductId equals product.ProductId
-                           where order.UserId == customerId
+                           where order.UserId == customerId && order.Status == status
                            select new GeneralOrderResponse
                            {
                                total = (int)order.TotalAmount,
@@ -42,8 +46,9 @@ namespace DressUpExchange.Service.Ultilities
                                                                    ).ToList()
 
 
-                                                 }).ToList()
-                              
+                                                 }).Skip(page).Take(pageSize).ToList()
+
+
 
                            }).FirstOrDefaultAsync();
 
@@ -56,7 +61,7 @@ namespace DressUpExchange.Service.Ultilities
 
         }
 
-        public static async Task<List<FeedbackDetailResponse>> GetFeedbackResponseAsync(this int productID)
+        public static async Task<List<FeedbackDetailResponse>> GetFeedbackResponseAsync(this int productID,int page, int pageSize)
         {
             var response =  (from productfeedback  in _context.ProductFeedbacks
                             join user in _context.Users on productfeedback.UserId equals user.UserId    
@@ -68,7 +73,7 @@ namespace DressUpExchange.Service.Ultilities
                                  rating = (int)productfeedback.Rating,
                                  userName = user.Name
 
-                             }).ToList();
+                             }).Skip(page).Take(pageSize).ToList();
             return response;
         
         }
