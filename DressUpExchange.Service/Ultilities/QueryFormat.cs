@@ -61,7 +61,7 @@ namespace DressUpExchange.Service.Ultilities
 
         }
 
-        public static async Task<List<FeedbackDetailResponse>> GetFeedbackResponseAsync(this int productID)
+        public static async Task<List<FeedbackDetailResponse>> GetFeedbackResponseAsync(this int productID,int page, int pageSize)
         {
             var response =  (from productfeedback  in _context.ProductFeedbacks
                             join user in _context.Users on productfeedback.UserId equals user.UserId    
@@ -73,7 +73,7 @@ namespace DressUpExchange.Service.Ultilities
                                  rating = (int)productfeedback.Rating,
                                  userName = user.Name
 
-                             }).ToList();
+                             }).Skip(page).Take(pageSize).ToList();
             return response;
         
         }

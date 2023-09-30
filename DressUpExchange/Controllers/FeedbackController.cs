@@ -17,7 +17,7 @@ namespace DressUpExchange.API.Controllers
         {
             _feedbackService = feedbackService;
         }
-        [Authorize(Roles =RoleNames.Customer)]
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost]
         public async Task<ActionResult> CreateFeedback(int id, FeedbackRequest feedbackRequest)
         {
@@ -26,12 +26,12 @@ namespace DressUpExchange.API.Controllers
                 return BadRequest(ModelState);
             }
 
-           bool check = await _feedbackService.AddNewFeedback(id, feedbackRequest);
-            
+            bool check = await _feedbackService.AddNewFeedback(id, feedbackRequest);
+
             return Ok("Create Feedback Sucessfully");
         }
 
-        [Authorize(Roles =RoleNames.Customer)]
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPut]
         public async Task<ActionResult> UpdateFeedback(int id, FeedbackRequest feedbackRequest)
         {
@@ -50,9 +50,9 @@ namespace DressUpExchange.API.Controllers
 
         [Authorize(Roles = RoleNames.Customer)]
         [HttpGet]
-        public async Task<ActionResult<FeedbackResponse>> GetAction(int id)
+        public async Task<ActionResult<FeedbackResponse>> GetAction(int id, [FromQuery] PagingRequest pagingRequest)
         {
-            FeedbackResponse feedbackResponse = await _feedbackService.GetFeedback(id);
+            FeedbackResponse feedbackResponse = await _feedbackService.GetFeedback(id, pagingRequest);
             return Ok(feedbackResponse);
         }
     }
