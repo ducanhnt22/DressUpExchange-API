@@ -140,6 +140,10 @@ namespace DressUpExchange.Data.Entity
 
                 entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
+                entity.Property(e => e.Thumbnail).HasColumnType("text");
+
+                entity.Property(e => e.Size).HasColumnType("text");
+
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
                     .IsUnicode(false);

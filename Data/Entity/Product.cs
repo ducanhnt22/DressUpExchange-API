@@ -22,6 +22,7 @@ namespace DressUpExchange.Data.Entity
         public int? Quantity { get; set; }
         public int? CategoryId { get; set; }
         public string? Thumbnail { get; set; }
+        public string? Size { get; set; }
 
         public virtual Category? Category { get; set; }
         public virtual User? User { get; set; }
