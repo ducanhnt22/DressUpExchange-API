@@ -17,7 +17,9 @@ namespace DressUpExchange.Service.DTO.Response
         public int? Quantity { get; set; }
         public string? Size { get; set; }
         public string? Thumbnail { get; set; }
-        public virtual ICollection<ProductImageRequest> Images { get; set; }
-        public virtual CategoryRequest? Category { get; set; }
+        public virtual List<string>? Images { get; set; }
+
+        
+       // public virtual CategoryRequest? Category { get; set; }
     }
 }
