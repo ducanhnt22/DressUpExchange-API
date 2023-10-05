@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gRUxOUVvomMsmmJCiR9bgKfgQ+YHFOp7aH8TS/3VPET9P9auoiC/62YjQuTWZy4W419u2U2RFak1oxiRwdbvRQ==",
+  "dgSpecHash": "Bgve53mkBS6nMOhdKcrxyfsmgJ3uWgI9N6IG0n1mKs9Xmu9o7z11DaxTnQt+Z6tFrkeQbMkR7vzo/3AZL7Ebpg==",
   "success": true,
-  "projectFilePath": "C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
+  "projectFilePath": "c:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\manda\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\manda\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
