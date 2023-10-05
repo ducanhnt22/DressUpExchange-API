@@ -109,7 +109,6 @@ app.Use((context, next) =>
     return next.Invoke();
 });
 
-
 app.UseCors();
 
 app.UseRouting();

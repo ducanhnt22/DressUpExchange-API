@@ -27,6 +27,7 @@ namespace DressUpExchange.API.Mapper
             CreateMap<ProductImage, ProductImageRequest>().ReverseMap();
 
             CreateMap<Category, CategoryResponse>().ReverseMap();
+            CreateMap<Category, CategoryRequest>().ReverseMap();
 
             CreateMap<VoucherRequest, Voucher>()
                 .ForMember(dex => dex.UserId, opt => opt.MapFrom(src => src.UserId))

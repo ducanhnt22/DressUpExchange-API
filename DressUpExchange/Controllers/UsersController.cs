@@ -41,7 +41,7 @@ namespace DressUpExchange.API.Controllers
         public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest model)
         {
             var rs = await _customerService.LoginAsync(model);
-            return Ok(rs);
+            return rs != null ? Ok(rs) : NotFound();
         }
         [HttpPost("register")]
         public async Task<ActionResult<UserResponse>> Register([FromBody] RegisterRequest model)

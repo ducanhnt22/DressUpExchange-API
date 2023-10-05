@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace DressUpExchange.Data.Entity
 {
@@ -31,9 +32,17 @@ namespace DressUpExchange.Data.Entity
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("server =(local); database = DressUpExchance;uid=sa;pwd=12345;TrustServerCertificate=True;");
+                optionsBuilder.UseSqlServer(GetConnectionString());
             }
+        }
+        private string GetConnectionString()
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", true, true)
+                .Build();
+            var strConn = config["ConnectionStrings"];
+            return strConn;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -130,6 +139,10 @@ namespace DressUpExchange.Data.Entity
                 entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
+
+                entity.Property(e => e.Thumbnail).HasColumnType("text");
+
+                entity.Property(e => e.Size).HasColumnType("text");
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
