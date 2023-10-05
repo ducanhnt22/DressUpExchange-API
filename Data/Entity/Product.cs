@@ -9,7 +9,6 @@ namespace DressUpExchange.Data.Entity
         {
             OrderItems = new HashSet<OrderItem>();
             ProductFeedbacks = new HashSet<ProductFeedback>();
-            ProductImages = new HashSet<ProductImage>();
             Vouchers = new HashSet<Voucher>();
         }
 
@@ -23,12 +22,11 @@ namespace DressUpExchange.Data.Entity
         public int? CategoryId { get; set; }
         public string? Thumbnail { get; set; }
         public string? Size { get; set; }
-
+        public string? ImagesUrl { get; set; }
         public virtual Category? Category { get; set; }
         public virtual User? User { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         public virtual ICollection<ProductFeedback> ProductFeedbacks { get; set; }
-        public virtual ICollection<ProductImage> ProductImages { get; set; }
         public virtual ICollection<Voucher> Vouchers { get; set; }
     }
 }

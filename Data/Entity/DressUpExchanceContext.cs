@@ -23,7 +23,6 @@ namespace DressUpExchange.Data.Entity
         public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
         public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<ProductFeedback> ProductFeedbacks { get; set; } = null!;
-        public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<UserSavedVoucher> UserSavedVouchers { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
@@ -148,6 +147,8 @@ namespace DressUpExchange.Data.Entity
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ImagesUrl).HasColumnType("text").HasMaxLength(1000);
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Category)
@@ -189,29 +190,6 @@ namespace DressUpExchange.Data.Entity
                     .WithMany(p => p.ProductFeedbacks)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__ProductFe__UserI__5165187F");
-            });
-
-            modelBuilder.Entity<ProductImage>(entity =>
-            {
-                entity.HasKey(e => e.ImageId)
-                    .HasName("PK__ProductI__7516F4EC68C970FA");
-
-                entity.Property(e => e.ImageId).HasColumnName("ImageID");
-
-                entity.Property(e => e.ImageUrl)
-                    .HasMaxLength(100)
-                    .HasColumnName("ImageURL");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductImages)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__ProductIm__Produ__3F466844");
             });
 
             modelBuilder.Entity<User>(entity =>

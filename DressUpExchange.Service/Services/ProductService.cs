@@ -42,33 +42,17 @@ namespace DressUpExchange.Service.Services
                 {
                     throw new CrudException(HttpStatusCode.BadRequest, "Product Invalid!!!", "");
                 }
-
                 var p = _mapper.Map<Product>(product);
                 p.CategoryId = product.CategoryId;
 
                 await _unitOfWork.Repository<Product>().CreateAsync(p);
                 await _unitOfWork.CommitAsync();
 
-                if (product.Images != null && product.Images.Any())
-                {
-                    foreach (var imageRequest in product.Images)
-                    {
-                        var productImage = _mapper.Map<ProductImage>(imageRequest);
-                        productImage.ProductId = p.ProductId;
-                        await _unitOfWork.Repository<ProductImage>().CreateAsync(productImage);
-                    }
-
-                    await _unitOfWork.CommitAsync();
-                }
                 return _mapper.Map<Product, ProductResponse>(p);
-            }
-            catch (CrudException ex)
-            {
-                throw ex;
             }
             catch (Exception ex)
             {
-                throw new CrudException(HttpStatusCode.BadRequest, "Insert Product Error!!!", ex.InnerException?.Message);
+                throw new Exception(ex.Message);
             }
         }
 
@@ -98,32 +82,7 @@ namespace DressUpExchange.Service.Services
         }
         public async Task<ProductResponse> GetProductById(int id)
         {
-            try
-            {
-                if (id <= 0)
-                {
-                    throw new CrudException(HttpStatusCode.BadRequest, "Id Product Invalid", "");
-                }
-
-                var response = await _unitOfWork.Repository<Product>()
-                    .Include(p => p.ProductImages)
-                    .SingleOrDefaultAsync(p => p.ProductId == id);
-
-                if (response == null)
-                {
-                    throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", "");
-                }
-
-                return _mapper.Map<ProductResponse>(response);
-            }
-            catch (CrudException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Get Product By ID Error!!!", ex.InnerException?.Message);
-            }
+            return null;
         }
 
         public Task<PagedResult<ProductResponse>> GetProducts(ProductGetRequest request, PagingRequest paging)
@@ -133,7 +92,6 @@ namespace DressUpExchange.Service.Services
                 var filter = _mapper.Map<ProductResponse>(request);
                 var products = _unitOfWork.Repository<Product>()
                     .GetAll()
-                    .Include(p => p.ProductImages)
                     .Include(p => p.Category)
                     .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(filter)
@@ -150,41 +108,7 @@ namespace DressUpExchange.Service.Services
 
         public async Task<ProductResponse> UpdateProduct(int id, ProductRequest request)
         {
-            try
-            {
-                Product product = await _unitOfWork.Repository<Product>()
-                    .Include(p => p.ProductImages)
-                    .SingleOrDefaultAsync(p => p.ProductId == id);
-
-                if (product == null)
-                {
-                    throw new CrudException(HttpStatusCode.NotFound, "Not found product with id", id.ToString());
-                }
-
-                _mapper.Map<ProductRequest, Product>(request, product);
-
-                if (request.Images != null && request.Images.Any())
-                {
-                    product.ProductImages.Clear();
-
-                    foreach (var imageRequest in request.Images)
-                    {
-                        var productImage = _mapper.Map<ProductImage>(imageRequest);
-                        product.ProductImages.Add(productImage);
-                    }
-                }
-
-                await _unitOfWork.CommitAsync();
-                return _mapper.Map<Product, ProductResponse>(product);
-            }
-            catch (CrudException ex)
-            {
-                throw new CrudException(HttpStatusCode.BadRequest, "Update product error!!!!!", ex.Message);
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            return null;
         }
 
     }

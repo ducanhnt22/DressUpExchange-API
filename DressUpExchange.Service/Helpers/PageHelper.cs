@@ -31,10 +31,10 @@ namespace DressUpExchange.Service.Helpers
                 return new PagedResult<T>
                 {
                     Results = results,
-                    PageNumber = (int)page,
-                    PageSize = (int)pageSize,
-                    TotalNumberOfPages = (int)totalPageCount,
-                    TotalNumberOfRecords = totalNumberOfRecords,
+                    //PageNumber = (int)page,
+                    //PageSize = (int)pageSize,
+                    //TotalNumberOfPages = (int)totalPageCount,
+                    Total= totalNumberOfRecords,
                 };
             }
             catch (Exception)
