@@ -21,7 +21,7 @@ namespace DressUpExchange.Service.DTO.Request
         public string? Status { get; set; } = "Active";
         public int? Quantity { get; set; }
         public string? Thumbnail { get; set; }
-        public virtual ICollection<ProductImageRequest>? Images { get; set; }
+        public virtual ICollection<string>? Images { get; set; }
         public int? CategoryId { get; set; }
     }
 }

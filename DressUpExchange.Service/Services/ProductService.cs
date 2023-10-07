@@ -53,8 +53,13 @@ namespace DressUpExchange.Service.Services
                 {
                     foreach (var imageRequest in product.Images)
                     {
-                        var productImage = _mapper.Map<ProductImage>(imageRequest);
-                        productImage.ProductId = p.ProductId;
+                        ProductImage productImage = new ProductImage()
+                        {
+                            ImageUrl = imageRequest,
+                            Status = "Active",
+                            ProductId = p.ProductId
+                        };
+                      
                         await _unitOfWork.Repository<ProductImage>().CreateAsync(productImage);
                     }
 
