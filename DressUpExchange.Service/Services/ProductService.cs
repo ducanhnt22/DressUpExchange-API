@@ -19,7 +19,7 @@ namespace DressUpExchange.Service.Services
 {
     public interface IProductService
     {
-        Task<PagedResult<ProductResponse>> GetProducts(ProductGetRequest request, PagingRequest paging);
+        Task<ProductResponseGeneral> GetProducts(ProductGetRequest request);
         Task<ProductResponse> DeleteProduct(int id);
         Task<ProductResponse> CreateProduct(ProductRequest request);
         Task<ProductResponse> GetProductById(int id);
@@ -126,21 +126,32 @@ namespace DressUpExchange.Service.Services
             }
         }
 
-        public Task<PagedResult<ProductResponse>> GetProducts(ProductGetRequest request, PagingRequest paging)
+        public async Task<ProductResponseGeneral> GetProducts(ProductGetRequest request)
         {
             try
             {
                 var filter = _mapper.Map<ProductResponse>(request);
-                var products = _unitOfWork.Repository<Product>()
+                var products = await QueryFormat.GetProductResponsesAsync(request);
+                var filterLogs = products.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
+                                    .DynamicFilter(filter)
+                                    .ToList();
+                int count = filterLogs.Count();
+                var result = new ProductResponseGeneral()
+                {
+                    Count = count,
+                    Items = filterLogs
+                };
+
+                /* var products1 = _unitOfWork.Repository<Product>()
                     .GetAll()
                     .Include(p => p.ProductImages)
                     .Include(p => p.Category)
                     .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(filter)
-                    .ToList();
-                var sort = PageHelper<ProductResponse>.Sorting(paging.SortType, products, paging.ColName);
-                var result = PageHelper<ProductResponse>.Paging(sort, paging.Page, paging.PageSize);
-                return Task.FromResult(result);
+                    .ToList();*/
+                /*     var sort = PageHelper<ProductResponse>.Sorting(paging.SortType, products, paging.ColName);
+                     var result = PageHelper<ProductResponse>.Paging(sort, paging.Page, paging.PageSize);*/
+                return result;
             }
             catch (CrudException ex)
             {

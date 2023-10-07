@@ -22,9 +22,9 @@ namespace DressUpExchange.API.Controllers
 
         
         [HttpGet]
-        public async Task<ActionResult<List<ProductResponse>>> GetProducts([FromQuery] PagingRequest pagingRequest, [FromQuery] ProductGetRequest productRequest)
+        public async Task<ActionResult<List<ProductResponse>>> GetProducts( [FromQuery] ProductGetRequest productRequest)
         {
-            var rs = await _productService.GetProducts(productRequest, pagingRequest);
+            var rs = await _productService.GetProducts(productRequest);
             return Ok(rs);
         }
 

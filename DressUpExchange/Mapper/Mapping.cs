@@ -22,7 +22,16 @@ namespace DressUpExchange.API.Mapper
                 .ReverseMap();
 
             CreateMap<ProductGetRequest, ProductResponse>()
+                .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dex => dex.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dex => dex.Price, opt => opt.MapFrom(src => src.Price))
+                .ForMember(dex => dex.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dex => dex.Size, opt => opt.MapFrom(src => src.Size))
+                .ForMember(dex => dex.Thumbnail, opt => opt.MapFrom(src => src.Thumbnail))
                 .ReverseMap();
+
+            CreateMap<ProductResponse, ProductResponse>().ReverseMap();
             CreateMap<ProductRequest, ProductResponse>().ReverseMap();
             CreateMap<ProductImage, ProductImageRequest>().ReverseMap();
 
