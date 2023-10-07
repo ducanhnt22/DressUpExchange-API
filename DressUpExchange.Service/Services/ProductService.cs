@@ -59,7 +59,7 @@ namespace DressUpExchange.Service.Services
                             Status = "Active",
                             ProductId = p.ProductId
                         };
-                      
+                     
                         await _unitOfWork.Repository<ProductImage>().CreateAsync(productImage);
                     }
 
