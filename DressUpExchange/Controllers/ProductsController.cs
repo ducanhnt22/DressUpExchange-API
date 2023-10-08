@@ -22,17 +22,17 @@ namespace DressUpExchange.API.Controllers
 
         
         [HttpGet]
-        public async Task<ActionResult<List<ProductResponse>>> GetProducts( [FromQuery] ProductGetRequest productRequest)
+        public async Task<ActionResult<List<ProductResponse>>> GetProducts([FromQuery] ProductGetRequest productRequest)
         {
             var rs = await _productService.GetProducts(productRequest);
-            return Ok(rs);
+            return rs != null ? Ok(rs) : NotFound();
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductResponse>> GetProduct(int id)
         {
             var rs = await _productService.GetProductById(id);
-            return Ok(rs);
+            return rs != null ? Ok(rs) : NotFound();
         }
 
 
@@ -57,10 +57,14 @@ namespace DressUpExchange.API.Controllers
                 model.UserId = id;
             }
             else return StatusCode(401);
+
             var rs = await _productService.CreateProduct(model);
-            return Ok(new
+            return rs != null ? Ok(new
             {
                 message = "Đăng bán sản phẩm thành công!"
+            }) : BadRequest(new
+            {
+                message = "Đăng bán sản phẩm thất bại!"
             });
         }
     }

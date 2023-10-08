@@ -112,6 +112,8 @@ namespace DressUpExchange.Service.Services
 
                 var response = await _unitOfWork.Repository<Product>()
                     .Include(p => p.ProductImages)
+                    .Include(p => p.User)
+                    .Where(p => p.Status == "Active")
                     .SingleOrDefaultAsync(p => p.ProductId == id);
 
                 if (response == null)
@@ -137,9 +139,20 @@ namespace DressUpExchange.Service.Services
             {
                 var filter = _mapper.Map<ProductResponse>(request);
                 var products = await QueryFormat.GetProductResponsesAsync(request);
-                var filterLogs = products.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
-                                    .DynamicFilter(filter)
-                                    .ToList();
+
+                IQueryable<ProductResponse> filteredProducts = products.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider);
+
+                if (request.UserId.HasValue)
+                {
+                    filteredProducts = filteredProducts.Where(x => x.UserId == request.UserId);
+                }
+
+                var filterLogs = filteredProducts
+                                .DynamicFilter(filter)
+                                .ToList();
+                //var filterLogs = products.ProjectTo<ProductResponse>(_mapper.ConfigurationProvider).Where(x => x.UserId == request.UserId)
+                //                    .DynamicFilter(filter)
+                //                    .ToList();
                 int count = filterLogs.Count();
                 var result = new ProductResponseGeneral()
                 {

@@ -19,6 +19,7 @@ using DressUpExchange.Service.Helpers;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Numerics;
 
 namespace DressUpExchange.Service.Services
 {
@@ -34,7 +35,10 @@ namespace DressUpExchange.Service.Services
         Task<UserResponse> RegisterAsync(RegisterRequest request);
         Task<UserResponse> UpdateAsync(int id, UserRequest request);
         Task<RefreshTokenResponse> RefreshTokenAsync(string refreshToken);
-
+        bool CheckPhone(string phone);
+        bool IsUniqueUser(string phone);
+        bool CheckPassword(User user, string password);
+        Task<User> GetCustomerByPhone(string phone);
     }
     public class CustomerService : ICustomerService
     {
@@ -47,7 +51,7 @@ namespace DressUpExchange.Service.Services
             _mapper = mapper;
             _config = config;
         }
-        public static bool CheckPhone(string phone)
+        public bool CheckPhone(string phone)
         {
             string regex = @"(^(0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)"; //VN Number: example 0867952623
             Regex re = new Regex(regex);
@@ -67,7 +71,6 @@ namespace DressUpExchange.Service.Services
             }
             else
                 return false;
-
         }
         public async Task<UserResponse> DeleteCustomer(int id)
         {
@@ -121,7 +124,7 @@ namespace DressUpExchange.Service.Services
         {
             var filter = _mapper.Map<UserResponse>(request);
             var customer = _unitOfWork.Repository<User>()
-                                      .GetAll()
+                                      .GetAll().Where(x => x.Role != "Admin")
                                       .ProjectTo<UserResponse>(_mapper.ConfigurationProvider)
                                       .DynamicFilter(filter)
                                       .ToList();
@@ -352,6 +355,31 @@ namespace DressUpExchange.Service.Services
             catch (Exception ex)
             {
                 throw new CrudException(HttpStatusCode.BadRequest, "Refresh Token Error", ex.Message);
+            }
+        }
+
+        public bool CheckPassword(User user, string password)
+        {
+            return user != null && user.Password == password;
+        }
+        public async Task<User> GetCustomerByPhone(string phone)
+        {
+            try
+            {
+                if (phone == null)
+                {
+                    throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Phone is invalid", "");
+                }
+                var user = await _unitOfWork.Repository<User>().GetAsync(u => u.PhoneNumber == phone);
+                return user;
+            }
+            catch (CrudException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new CrudException(HttpStatusCode.BadRequest, "Get User By Phone Error", ex.InnerException?.Message);
             }
         }
     }
