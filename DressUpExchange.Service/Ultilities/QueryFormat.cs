@@ -3,12 +3,16 @@ using AutoMapper.QueryableExtensions;
 using DressUpExchange.Data.Entity;
 using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.Response;
+using Firebase.Auth;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Twilio.Rest.Api.V2010.Account;
 
 namespace DressUpExchange.Service.Ultilities
@@ -92,8 +96,11 @@ namespace DressUpExchange.Service.Ultilities
 
             var result = _context.Products
                          .Include(p => p.ProductImages) // Eagerly load images
+                         .Include(p => p.User)
+                         .Where(p => p.Status == "Active")
                          .Select(product => new ProductResponse
                          {
+                             UserId = product.UserId,
                              Description = product.Description,
                              Name = product.Name,
                              Price = product.Price,
@@ -101,7 +108,14 @@ namespace DressUpExchange.Service.Ultilities
                              Thumbnail = product.Thumbnail,
                              Size = product.Size,
                              ProductId = product.ProductId,
-                             Images = product.ProductImages.Select(pi => pi.ImageUrl).ToList()
+                             Images = product.ProductImages.Select(pi => pi.ImageUrl).ToList(),
+                             User = new UserResponse
+                             {
+                                 //UserId = product.User.UserId,
+                                 Name = product.User.Name,
+                                 Address = product.User.Address,
+                                 Role = product.User.Role
+                             }
                          })
                          .ToList().AsQueryable();
 

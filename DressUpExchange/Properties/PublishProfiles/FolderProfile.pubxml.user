@@ -3,4 +3,9 @@
 https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\DressUpExchange-API\DressUpExchange\bin\Release\net7.0\publish\</_PublishTargetUrl>
+    <History>True|2023-10-07T16:38:57.3993622Z;True|2023-10-07T23:38:29.9573125+07:00;True|2023-10-07T23:29:30.3802839+07:00;True|2023-10-07T23:29:17.7150031+07:00;True|2023-10-07T23:28:08.4621454+07:00;True|2023-10-07T23:18:03.8159002+07:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
 </Project>
