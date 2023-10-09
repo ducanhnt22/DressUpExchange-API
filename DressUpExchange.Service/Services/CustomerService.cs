@@ -124,12 +124,12 @@ namespace DressUpExchange.Service.Services
         {
             var filter = _mapper.Map<UserResponse>(request);
             var customer = _unitOfWork.Repository<User>()
-                                      .GetAll().Where(x => x.Role != "Admin")
+                                      .GetAll()
                                       .ProjectTo<UserResponse>(_mapper.ConfigurationProvider)
                                       .DynamicFilter(filter)
                                       .ToList();
-            var sort = PageHelper<UserResponse>.Sorting(paging.SortType, customer, paging.ColName);
-            var result = PageHelper<UserResponse>.Paging(sort, paging.Page, paging.PageSize);
+           // var sort = PageHelper<UserResponse>.Sorting(paging.SortType, customer, paging.ColName).ToList();
+            var result = PageHelper<UserResponse>.Paging(customer, paging.Page, paging.PageSize);
             return Task.FromResult(result);
         }
         public async Task<UserLoginResponse> LoginAsync(LoginRequest request)

@@ -19,6 +19,8 @@ namespace DressUpExchange.Service.Services
     {
         Task<bool> AddNewOrder(OrderRequest orderRequest);
         Task<GeneralOrderResponse> GetOrderByCustomer(int userID,OrderPagingRequest orderPaging);
+
+        Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest);
     }
     public class OrderService : IOrderService
     {
@@ -59,6 +61,18 @@ namespace DressUpExchange.Service.Services
             }
 
             return true;
+
+        }
+
+        public async Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest)
+        {
+            List<OrderResponse> general = await QueryFormat.getAllOrder(pagingRequest.Page,pagingRequest.PageSize);
+            GeneralOrderResponse generalOrderResponse = new GeneralOrderResponse()
+            {
+                total = general.Count(),
+                orderResponses = general
+            };
+            return generalOrderResponse;
 
         }
 

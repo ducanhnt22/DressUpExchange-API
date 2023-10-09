@@ -26,7 +26,62 @@ namespace DressUpExchange.Service.Ultilities
 
 
 
+        public static async Task<List<OrderResponse>> getAllOrder(this int page, int pageSize)
+        {
+            var response = await (from order in _context.Orders
+                                  join orderitem in _context.OrderItems on order.OrderId equals orderitem.OrderId
+                                  join product in _context.Products on orderitem.ProductId equals product.ProductId
+                                  select new GeneralOrderResponse
+                                  {
+                                      total = (int)order.TotalAmount,
+                                      orderResponses = (from or in _context.Orders
+                                                        join oi in _context.OrderItems on or.OrderId equals oi.OrderId
+                                                        select new OrderResponse
+                                                        {
+                                                            orderDate = (DateTime)or.OrderDate,
+                                                            totalAmount = (int)order.TotalAmount,
+                                                            orderItems = (from or1 in _context.OrderItems
+                                                                          join n in _context.Products on or1.ProductId equals n.ProductId
+                                                                          where n.ProductId == or1.ProductId
+                                                                          select new OrderItemResponse
+                                                                          {
+                                                                              ProductID = product.ProductId,
+                                                                              ProductName = product.Name,
+                                                                              quantityBuy = (int)or1.Quantity,
+                                                                              status = or1.Status
+                                                                          }
+                                                                          ).ToList()
 
+
+                                                        }).ToList()
+
+
+
+                                  }).FirstOrDefaultAsync();
+
+
+
+
+            var result = (from order in _context.Orders
+                          join orderItems in _context.OrderItems on order.OrderId equals orderItems.OrderId
+                          select new OrderResponse
+                          {
+                              orderDate = (DateTime)order.OrderDate,
+                              totalAmount = (int)order.TotalAmount,
+                              orderItems = (from ots in _context.OrderItems
+                                            join product in _context.Products on ots.ProductId equals product.ProductId
+                                            select new OrderItemResponse
+                                            {
+                                                ProductID = product.ProductId,
+                                                ProductName = product.Name,
+                                                quantityBuy = (int)product.Quantity,
+                                                status = ots.Status
+                                            }).ToList()
+                          }).ToList();
+                
+            return result;
+
+        }
         public static async Task<GeneralOrderResponse> getOrder(this int customerId, string status, int page, int pageSize)
         {
             var response = await (from order in _context.Orders

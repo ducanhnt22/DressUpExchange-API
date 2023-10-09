@@ -12,7 +12,11 @@ namespace DressUpExchange.API.Mapper
             CreateMap<User, CustomerRequest>().ReverseMap();
             CreateMap<User, UserRequest>().ReverseMap();
             CreateMap<User, UserResponse>().ReverseMap();
-            CreateMap<CustomerRequest, UserResponse>().ReverseMap();
+            CreateMap<CustomerRequest, UserResponse>()
+                .ForMember(dex => dex.Address, opt => opt.MapFrom(src => src.Address))
+                .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dex => dex.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ReverseMap();
             CreateMap<RegisterRequest, User>().ReverseMap();
 
             CreateMap<User, UserLoginResponse>().ReverseMap();

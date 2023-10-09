@@ -19,6 +19,14 @@ namespace DressUpExchange.API.Controllers
             _orderService = orderService;
         }
 
+        [Authorize(Roles = RoleNames.Admin)]
+        [HttpGet]
+        public async Task<ActionResult<GeneralOrderResponse>> GetAllOrder([FromQuery] PagingRequest pagingRequest)
+        {
+            GeneralOrderResponse generalOrderResponse = await _orderService.GetOrder(pagingRequest);
+            return Ok(generalOrderResponse);
+        }
+
         [Authorize(Roles = RoleNames.Customer)]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<GeneralOrderResponse>> GetOrder(int id, [FromQuery] OrderPagingRequest pagingRequest)
