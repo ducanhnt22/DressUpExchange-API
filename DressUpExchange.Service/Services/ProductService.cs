@@ -114,6 +114,25 @@ namespace DressUpExchange.Service.Services
                     .Include(p => p.ProductImages)
                     .Include(p => p.User)
                     .Where(p => p.Status == "Active")
+                    .Select(product => new ProductResponse
+                    {
+                        UserId = product.UserId,
+                        Description = product.Description,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Quantity = product.Quantity,
+                        Thumbnail = product.Thumbnail,
+                        Size = product.Size,
+                        ProductId = product.ProductId,
+                        Images = product.ProductImages.Select(pi => pi.ImageUrl).ToList(),
+                        User = new UserResponse
+                        {
+                            Phone = product.User.PhoneNumber,
+                            Name = product.User.Name,
+                            Address = product.User.Address,
+                            Role = product.User.Role
+                        }
+                    })
                     .SingleOrDefaultAsync(p => p.ProductId == id);
 
                 if (response == null)

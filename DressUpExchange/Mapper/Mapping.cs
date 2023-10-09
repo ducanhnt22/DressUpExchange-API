@@ -15,6 +15,10 @@ namespace DressUpExchange.API.Mapper
             CreateMap<CustomerRequest, UserResponse>().ReverseMap();
             CreateMap<RegisterRequest, User>().ReverseMap();
 
+            CreateMap<User, UserLoginResponse>().ReverseMap();
+            CreateMap<User, LoginRequest>().ReverseMap();
+            CreateMap<LoginRequest, UserLoginResponse>().ReverseMap();
+
             CreateMap<Product, ProductRequest>().ReverseMap();
             CreateMap<Product, ProductGetRequest>().ReverseMap();
             CreateMap<Product, ProductResponse>()

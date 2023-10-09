@@ -169,12 +169,12 @@ namespace DressUpExchange.Service.Services
             if (user.Role == "Admin")
             {
                 accessToken = GenerateAdminJsonWebToken(secretKeyConfig, secretKeyDateTime);
-                return CreateLoginResponse(0, "Admin", "Admin", accessToken, refreshToken);
+                return CreateLoginResponse(0, "Admin", "Admin", "Unknown", "Unknown", accessToken, refreshToken);
             }
             else
             {
                 accessToken = GenerateUserJsonWebToken(user, secretKeyConfig, secretKeyDateTime);
-                return CreateLoginResponse(user.UserId, user.Name, user.Role, accessToken, refreshToken);
+                return CreateLoginResponse(user.UserId, user.Name, user.Role, user.PhoneNumber, user.Address, accessToken, refreshToken);
             }
         }
 
@@ -184,13 +184,15 @@ namespace DressUpExchange.Service.Services
             await _unitOfWork.CommitAsync();
         }
 
-        private UserLoginResponse CreateLoginResponse(int userId, string name, string role, string accessToken, string refreshToken)
+        private UserLoginResponse CreateLoginResponse(int userId, string name, string role, string phone, string address, string accessToken, string refreshToken)
         {
             return new UserLoginResponse
             {
                 UserId = userId,
                 Name = name,
                 Role = role,
+                PhoneNumber = phone,
+                Address = address,
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,
             };
@@ -298,10 +300,10 @@ namespace DressUpExchange.Service.Services
             {
                 var user = await _unitOfWork.Repository<User>().GetAsync(u => u.UserId == id);
 
-                if (user == null)
-                {
-                    throw new CrudException(HttpStatusCode.NotFound, "User not found", id.ToString());
-                }
+                //if (user == null)
+                //{
+                //    throw new CrudException(HttpStatusCode.NotFound, "User not found", id.ToString());
+                //}
 
                 user.Name = request.Name;
                 user.Password = request.Password;
