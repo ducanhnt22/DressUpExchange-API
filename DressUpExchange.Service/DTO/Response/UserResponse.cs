@@ -8,7 +8,11 @@ namespace DressUpExchange.Service.DTO.Response
 {
     public class UserResponse
     {
+<<<<<<< HEAD
         public int UserId { get; internal set; }
+=======
+        public int Id { get; set; }
+>>>>>>> 823132cb1cbee19a4be1ebd6b55810d225b64e5d
         public string? Phone { get; internal set; }
         public string? Name { get; internal set; }
         public string? Role { get; internal set; }

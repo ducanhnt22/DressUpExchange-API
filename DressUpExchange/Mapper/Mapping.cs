@@ -10,11 +10,24 @@ namespace DressUpExchange.API.Mapper
         public Mapping()
         {
             CreateMap<User, CustomerRequest>().ReverseMap();
+<<<<<<< HEAD
             CreateMap<User, UserRequest>().ReverseMap();
             CreateMap<User, UserResponse>().ReverseMap();
             CreateMap<CustomerRequest, UserResponse>()
                 .ForMember(dex => dex.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
+=======
+            CreateMap<User, UserRequest>()
+                .ForMember(dex => dex.Id, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dex => dex.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ReverseMap();
+            CreateMap<User, UserResponse>()
+                .ForMember(dex => dex.Id, opt => opt.MapFrom(src => src.UserId))
+                .ForMember(dex => dex.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
+                .ReverseMap();
+            CreateMap<CustomerRequest, UserResponse>()
+                .ForMember(dex => dex.Id, opt => opt.MapFrom(src => src.Id))
+>>>>>>> 823132cb1cbee19a4be1ebd6b55810d225b64e5d
                 .ForMember(dex => dex.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ReverseMap();
             CreateMap<RegisterRequest, User>().ReverseMap();
