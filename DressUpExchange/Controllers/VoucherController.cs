@@ -61,7 +61,6 @@ namespace DressUpExchange.API.Controllers
             return Ok("Vocuher đã được thêm vào danh sách voucher của bạn");
         }
 
-        [Authorize(Roles = RoleNames.Customer)]
         [HttpGet("GetVoucherByCustomerID")]
         public async Task<ActionResult<VoucherResponse>> GetVoucherByCustomer(int userID, [FromQuery] PagingRequest pagingRequest)
         {
@@ -70,7 +69,6 @@ namespace DressUpExchange.API.Controllers
 
         }
 
-        [Authorize(Roles = RoleNames.Customer)]
         [HttpGet("GetVoucherByProductID")]
         public async Task<ActionResult<VoucherResponse>> GetVoucherByProduct(int productID, [FromQuery] PagingRequest pa )
         {

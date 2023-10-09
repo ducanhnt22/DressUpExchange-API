@@ -124,6 +124,7 @@ namespace DressUpExchange.API.Controllers
             }
         }
         [HttpPost("ChangePassword")]
+        [Authorize(Roles = RoleNames.Customer)]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest model)
         {
             try

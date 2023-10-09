@@ -112,6 +112,7 @@ namespace DressUpExchange.Service.Ultilities
                              User = new UserResponse
                              {
                                  //UserId = product.User.UserId,
+                                 Phone = product.User.PhoneNumber,
                                  Name = product.User.Name,
                                  Address = product.User.Address,
                                  Role = product.User.Role
