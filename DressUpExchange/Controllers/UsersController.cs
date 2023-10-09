@@ -95,10 +95,10 @@ namespace DressUpExchange.API.Controllers
         public async Task<ActionResult<UserResponse>> EditProfile(int id, [FromBody] UserRequest request)
         {
             var rs = await _customerService.UpdateAsync(id, request);
-            return Ok(new
+            return rs != null ?  Ok(new
             {
                 message = "Thông tin tài khoản đã được cập nhật!"
-            });
+            }) : NotFound();
         }
         [HttpPost("RefreshToken")]
         public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(string refreshToken)
