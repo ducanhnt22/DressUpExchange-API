@@ -225,8 +225,10 @@ namespace DressUpExchange.Service.Services
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.PhoneNumber),
+                new Claim(ClaimTypes.MobilePhone, user.PhoneNumber),
                 new Claim("userId", user.UserId.ToString()),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.StreetAddress, user.Address),
                 new Claim(ClaimTypes.Role, "User"),
             };
 

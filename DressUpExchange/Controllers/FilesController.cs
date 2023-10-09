@@ -24,7 +24,10 @@ namespace DressUpExchange.API.Controllers
                 return BadRequest("Exceed 25MB");
             //string url = await _fileStorageService.UploadFileToDefaultAsync(file.OpenReadStream(), file.FileName);
             string url = await _fileStorageService.UploadFileToDefaultAsyncV2(file, "picture");
-            return Ok(url);
+            return Ok(new
+            {
+                imgUrl = url
+            });
         }
         [Authorize(Roles = RoleNames.Customer)]
         [HttpDelete]

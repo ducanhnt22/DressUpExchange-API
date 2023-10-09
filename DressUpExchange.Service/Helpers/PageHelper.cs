@@ -45,6 +45,14 @@ namespace DressUpExchange.Service.Helpers
 
         public static List<T> Sorting(SortOrder sortType, IEnumerable<T> searchResult, string colName)
         {
+            var properties = typeof(T).GetProperties();
+            var property = properties.FirstOrDefault(x => x.Name.Equals(colName, StringComparison.CurrentCultureIgnoreCase));
+
+            if (property == null)
+            {
+                throw new ArgumentException($"Column '{colName}' does not exist in type '{typeof(T).Name}'.");
+            }
+
             if (sortType == SortOrder.Ascending)
             {
                 return searchResult.OrderBy(item => typeof(T).GetProperties().First(x => x.Name.Contains(colName, StringComparison.CurrentCultureIgnoreCase)).GetValue(item)).ToList();
