@@ -9,7 +9,6 @@ namespace DressUpExchange.Data.Entity
         public int? ProductId { get; set; }
         public string? ImageUrl { get; set; }
         public string? Status { get; set; }
-
         public virtual Product? Product { get; set; }
     }
 }

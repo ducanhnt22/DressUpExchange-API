@@ -25,8 +25,6 @@ namespace DressUpExchange.API.Controllers
         {
             GeneralOrderResponse generalOrderResponse = await _orderService.GetOrderByCustomer(id,pagingRequest);
             return Ok(generalOrderResponse);
-
-
         }
         [Authorize(Roles = RoleNames.Customer)]
         [HttpPost]
