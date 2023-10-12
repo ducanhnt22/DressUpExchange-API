@@ -12,7 +12,6 @@ namespace DressUpExchange.Service.DTO.Response
 
         public DateTime orderDate { get; set; }
 
-        public List<OrderItemResponse>? orderItems { get; set; } = new List<OrderItemResponse>();
-
+        public List<OrderItemResponse>? orderItems { get; set; }
     }
 }

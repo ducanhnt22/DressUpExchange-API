@@ -71,29 +71,58 @@ namespace DressUpExchange.Service.Ultilities
                                                 price = ots.Price
                                             }).ToList()
                           }).ToList();
-                
-            return result;
+
+            var result1 = (from order in _context.Orders
+                          join orderItem in _context.OrderItems on order.OrderId equals orderItem.OrderId
+                          join productMain1 in _context.Products on orderItem.ProductId equals productMain1.ProductId
+                          where order.OrderId == orderItem.OrderId
+                          select new OrderResponse
+                          {
+                              orderDate = (DateTime)order.OrderDate,
+                              totalAmount = (float)order.TotalAmount,
+                              orderItems = (from order1 in _context.Orders
+                                            from orderItemSp in _context.OrderItems
+                                            join product in _context.Products on orderItemSp.ProductId equals product.ProductId
+                                            join laundry1 in _context.Laundries on orderItemSp.LaundryId equals laundry1.LaundryId
+                                            where order1.OrderId == orderItemSp.OrderId && product.ProductId == orderItem.ProductId && orderItem.OrderItemId == orderItemSp.OrderItemId
+                                            select new OrderItemResponse
+                                            {
+                                                ProductID = product.ProductId,
+                                                ProductName = product.Name,
+                                                quantityBuy = orderItemSp.Quantity,
+                                                price = orderItemSp.Price,
+                                                status = orderItemSp.Status,
+                                                Laundry = (from orderItemSp2 in _context.OrderItems
+                                                           join Laundry in _context.Laundries on orderItemSp2.LaundryId equals Laundry.LaundryId
+                                                           where  orderItem.LaundryId == Laundry.LaundryId
+                                                           select new LaundryResponse
+                                                           {
+                                                               LaundryName = Laundry.LaundryName,
+                                                               Price = Laundry.Price,
+                                                           }).ToList()
+
+                                            }).ToList()
+                          }).ToList();
+
+            return result1;
 
         }
-        public static async Task<GeneralOrderResponse> GetOrders(int customerId, string status, int page, int pageSize)
+        public static  async Task<GeneralOrderResponse> GetOrders(int customerId, string status, int page, int pageSize)
         {
-            var response = await (from order in _context.Orders
+            var response =  await (from order in _context.Orders
                                   join orderitem in _context.OrderItems on order.OrderId equals orderitem.OrderId
                                   join product in _context.Products on orderitem.ProductId equals product.ProductId
-                                  where order.UserId == customerId && order.Status == status
                                   select new GeneralOrderResponse
                                   {
                                       total = (int)order.TotalAmount,
                                       orderResponses = (from or in _context.Orders
                                                         join oi in _context.OrderItems on or.OrderId equals oi.OrderId
-                                                        where oi.OrderId == order.OrderId
                                                         select new OrderResponse
                                                         {
                                                             orderDate = (DateTime)or.OrderDate,
                                                             totalAmount = (int)or.TotalAmount,
                                                             orderItems = (from or1 in _context.OrderItems
                                                                           join n in _context.Products on or1.ProductId equals n.ProductId
-                                                                          where n.ProductId == or1.ProductId
                                                                           select new OrderItemResponse
                                                                           {
                                                                               ProductID = or1.ProductId,
@@ -113,6 +142,8 @@ namespace DressUpExchange.Service.Ultilities
                                       ).Skip(page).Take(pageSize).ToList()
                                   }
                             ).FirstOrDefaultAsync();
+            
+        
             return response;
         }
 
