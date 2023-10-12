@@ -6,18 +6,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace DressUpExchange.Data.Entity
 {
-    public partial class DressUpExchanceContext : DbContext
+    public partial class DressupExchanceContext : DbContext
     {
-        public DressUpExchanceContext()
+        public DressupExchanceContext()
         {
         }
 
-        public DressUpExchanceContext(DbContextOptions<DressUpExchanceContext> options)
+        public DressupExchanceContext(DbContextOptions<DressupExchanceContext> options)
             : base(options)
         {
         }
 
         public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<Laundry> Laundries { get; set; } = null!;
         public virtual DbSet<Notification> Notifications { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
@@ -25,7 +26,6 @@ namespace DressUpExchange.Data.Entity
         public virtual DbSet<ProductFeedback> ProductFeedbacks { get; set; } = null!;
         public virtual DbSet<ProductImage> ProductImages { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
-        public virtual DbSet<UserSavedVoucher> UserSavedVouchers { get; set; } = null!;
         public virtual DbSet<Voucher> Vouchers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -56,6 +56,13 @@ namespace DressUpExchange.Data.Entity
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Laundry>(entity =>
+            {
+                entity.ToTable("Laundry");
+
+                entity.Property(e => e.Price).HasMaxLength(10);
             });
 
             modelBuilder.Entity<Notification>(entity =>
@@ -89,6 +96,7 @@ namespace DressUpExchange.Data.Entity
                     .IsUnicode(false);
 
                 entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
+                entity.Property(e => e.ShippingAddress).HasMaxLength(4000);
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
@@ -110,7 +118,13 @@ namespace DressUpExchange.Data.Entity
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
-                entity.Property(e => e.UserSavedVoucherId).HasColumnName("UserSavedVoucherID");
+                entity.Property(e => e.Price)
+                    .HasMaxLength(1000);
+
+                entity.HasOne(d => d.Laundry)
+                    .WithMany(p => p.OrderItems)
+                    .HasForeignKey(d => d.LaundryId)
+                    .HasConstraintName("FK_OrderItems_Laundry");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItems)
@@ -122,10 +136,10 @@ namespace DressUpExchange.Data.Entity
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK__OrderItem__Produ__4E88ABD4");
 
-                entity.HasOne(d => d.UserSavedVoucher)
+                entity.HasOne(d => d.Voucher)
                     .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.UserSavedVoucherId)
-                    .HasConstraintName("FK__OrderItem__UserS__4CA06362");
+                    .HasForeignKey(d => d.VoucherId)
+                    .HasConstraintName("FK_OrderItems_Vouchers1");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -134,15 +148,13 @@ namespace DressUpExchange.Data.Entity
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.Description).HasColumnType("text");
-
                 entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-                entity.Property(e => e.Thumbnail).HasColumnType("text");
-
-                entity.Property(e => e.Size).HasColumnType("text");
+                entity.Property(e => e.Size)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
@@ -198,9 +210,7 @@ namespace DressUpExchange.Data.Entity
 
                 entity.Property(e => e.ImageId).HasColumnName("ImageID");
 
-                entity.Property(e => e.ImageUrl)
-                    .HasMaxLength(100)
-                    .HasColumnName("ImageURL");
+                entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
 
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
@@ -230,6 +240,8 @@ namespace DressUpExchange.Data.Entity
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RefreshToken).HasMaxLength(100);
+
                 entity.Property(e => e.Role)
                     .HasMaxLength(10)
                     .IsUnicode(false);
@@ -237,33 +249,6 @@ namespace DressUpExchange.Data.Entity
                 entity.Property(e => e.Status)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-
-                entity.Property(e => e.RefreshToken)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<UserSavedVoucher>(entity =>
-            {
-                entity.Property(e => e.UserSavedVoucherId).HasColumnName("UserSavedVoucherID");
-
-                entity.Property(e => e.Status)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.Property(e => e.VoucherId).HasColumnName("VoucherID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserSavedVouchers)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK__UserSaved__UserI__48CFD27E");
-
-                entity.HasOne(d => d.Voucher)
-                    .WithMany(p => p.UserSavedVouchers)
-                    .HasForeignKey(d => d.VoucherId)
-                    .HasConstraintName("FK__UserSaved__Vouch__49C3F6B7");
             });
 
             modelBuilder.Entity<Voucher>(entity =>

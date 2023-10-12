@@ -53,13 +53,13 @@ namespace DressUpExchange.API.Controllers
             return Ok("Delete Voucher Sucessfully");
         }
 
-        [Authorize(Roles = RoleNames.Customer)]
-        [HttpPost("SaveVoucher")]
-        public async Task<ActionResult> SaveVoucher(int VoucherID, int CustomerID)
-        {
-            await _voucherService.SaveVoucherByID(VoucherID, CustomerID);
-            return Ok("Vocuher đã được thêm vào danh sách voucher của bạn");
-        }
+        //[Authorize(Roles = RoleNames.Customer)]
+        //[HttpPost("SaveVoucher")]
+        //public async Task<ActionResult> SaveVoucher(int VoucherID, int CustomerID)
+        //{
+        //    await _voucherService.SaveVoucherByID(VoucherID, CustomerID);
+        //    return Ok("Vocuher đã được thêm vào danh sách voucher của bạn");
+        //}
 
         [HttpGet("GetVoucherByCustomerID")]
         public async Task<ActionResult<VoucherResponse>> GetVoucherByCustomer(int userID, [FromQuery] PagingRequest pagingRequest)

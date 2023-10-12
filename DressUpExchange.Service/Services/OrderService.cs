@@ -19,6 +19,8 @@ namespace DressUpExchange.Service.Services
     {
         Task<bool> AddNewOrder(OrderRequest orderRequest);
         Task<GeneralOrderResponse> GetOrderByCustomer(int userID,OrderPagingRequest orderPaging);
+
+        Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest);
     }
     public class OrderService : IOrderService
     {
@@ -53,7 +55,7 @@ namespace DressUpExchange.Service.Services
                 orderItem.Quantity = item.Quantity;
                 orderItem.ProductId = item.ProductId; orderItem.OrderId = orderItemNew;
                 orderItem.Status = OrderState.Processing.ToString();
-                orderItem.UserSavedVoucherId = item.UserSavedVoucherId;
+                orderItem.VoucherId = item.VoucherId;
                 await _unitOfWork.Repository<OrderItem>().CreateAsync(orderItem);
                 _unitOfWork.Commit();
             }
@@ -62,29 +64,41 @@ namespace DressUpExchange.Service.Services
 
         }
 
+        public async Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest)
+        {
+            List<OrderResponse> general = await QueryFormat.getAllOrder(pagingRequest.Page,pagingRequest.PageSize);
+            GeneralOrderResponse generalOrderResponse = new GeneralOrderResponse()
+            {
+                total = general.Count(),
+                orderResponses = general
+            };
+            return generalOrderResponse;
+
+        }
+
         public async Task<GeneralOrderResponse> GetOrderByCustomer(int userID, OrderPagingRequest orderPaging)
         {
-            var generalOrderResponse = await QueryFormat.getOrder(userID,orderPaging.Status,orderPaging.Page,orderPaging.PageSize);
+            var generalOrderResponse = await QueryFormat.GetOrders(userID,orderPaging.Status,orderPaging.Page,orderPaging.PageSize);
    
             
             return generalOrderResponse;
                                     
         }
 
-        public async Task<bool> UpdateQuantityProduct(int? productId,int? quantity)
+        public async Task<bool> UpdateQuantityProduct(int? productId, int? quantity)
         {
-            Product? product =   _unitOfWork.Repository<Product>().Where(x => x.ProductId == productId).FirstOrDefault() ?? null;
+            Product? product = _unitOfWork.Repository<Product>().Where(x => x.ProductId == productId).FirstOrDefault() ?? null;
             if (product == null)
             {
                 throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Not Found Product", "");
 
             }
-            if(product.Quantity == 0)
+            if (product.Quantity == 0)
             {
                 throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Sold out", product.ProductId.ToString());
             }
             product.Quantity = quantity;
-          await  _unitOfWork.Repository<Product>().Update(product, (int)productId);    
+            await _unitOfWork.Repository<Product>().Update(product, (int)productId);
             _unitOfWork.Commit();
             return true;
         }

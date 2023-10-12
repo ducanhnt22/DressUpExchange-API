@@ -7,7 +7,7 @@ namespace DressUpExchange.Data.Entity
     {
         public Voucher()
         {
-            UserSavedVouchers = new HashSet<UserSavedVoucher>();
+            OrderItems = new HashSet<OrderItem>();
         }
 
         public int VoucherId { get; set; }
@@ -22,6 +22,6 @@ namespace DressUpExchange.Data.Entity
 
         public virtual Product? Product { get; set; }
         public virtual User? User { get; set; }
-        public virtual ICollection<UserSavedVoucher> UserSavedVouchers { get; set; }
+        public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

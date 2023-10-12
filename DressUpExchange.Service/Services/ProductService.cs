@@ -152,7 +152,7 @@ namespace DressUpExchange.Service.Services
             }
         }
 
-        public async Task<ProductResponseGeneral> GetProducts(ProductGetRequest request)
+        public async Task<ProductResponseGeneral> GetProducts( ProductGetRequest request)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace DressUpExchange.Service.Services
                 {
                     filteredProducts = filteredProducts.Where(x => x.UserId == request.UserId);
                 }
-
+                //paging.ColName = "userId";
                 var filterLogs = filteredProducts
                                 .DynamicFilter(filter)
                                 .ToList();
@@ -186,8 +186,8 @@ namespace DressUpExchange.Service.Services
                     .ProjectTo<ProductResponse>(_mapper.ConfigurationProvider)
                     .DynamicFilter(filter)
                     .ToList();*/
-                /*     var sort = PageHelper<ProductResponse>.Sorting(paging.SortType, products, paging.ColName);
-                     var result = PageHelper<ProductResponse>.Paging(sort, paging.Page, paging.PageSize);*/
+                //var sort = PageHelper<ProductResponse>.Sorting(paging.SortType, products, paging.ColName);
+                //var result = PageHelper<ProductResponse>.Paging(sort, paging.Page, paging.PageSize);
                 return result;
             }
             catch (CrudException ex)

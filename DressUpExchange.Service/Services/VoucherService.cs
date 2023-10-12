@@ -19,10 +19,7 @@ namespace DressUpExchange.Service.Services
         Task<bool> CreateNewVoucher(int productID, VoucherRequest voucherRequest);
         Task<bool> UpdateVoucher(int productID, UpdateVoucherRequest updateVoucherRequest);
         Task<bool> DeleteVoucher(int voucherID);
-        Task<bool> SaveVoucherByID(int voucherId, int userID);
-
         Task<VoucherResponse> GetVoucherByProductID(int? customerID = null);
-
         public Task<VoucherResponse> GetVoucherByCustomerID(int? customerID = null);
     }
     public class VoucherService : IVourcherService
@@ -98,19 +95,19 @@ namespace DressUpExchange.Service.Services
             return voucherDetailResponse;
         }
 
-        public async Task<bool> SaveVoucherByID(int voucherId, int userID)
-        {
-            UserSavedVoucher saveVoucherByID = new UserSavedVoucher()
-            {
-                VoucherId = voucherId,
-                UserId = userID
-                ,
-                Status = SaveVoucherState.InSave.ToString()
-            };
-            await _unitOfWork.Repository<UserSavedVoucher>().CreateAsync(saveVoucherByID);
-            _unitOfWork.Commit();
-            return true;
-        }
+        //public async Task<bool> SaveVoucherByID(int voucherId, int userID)
+        //{
+        //    UserSavedVoucher saveVoucherByID = new UserSavedVoucher()
+        //    {
+        //        VoucherId = voucherId,
+        //        UserId = userID
+        //        ,
+        //        Status = SaveVoucherState.InSave.ToString()
+        //    };
+        //    await _unitOfWork.Repository<UserSavedVoucher>().CreateAsync(saveVoucherByID);
+        //    _unitOfWork.Commit();
+        //    return true;
+        //}
 
         public async Task<bool> UpdateVoucher(int productID, UpdateVoucherRequest updateVoucherRequest)
         {

@@ -10,7 +10,7 @@ namespace DressUpExchange.Service.DTO.Response
     {
         public int total { get; set; }
 
-        public List<OrderResponse>?  orderResponses { get; set; } 
+        public List<OrderResponse>?  orderResponses { get; set; }  = new List<OrderResponse>();
 
     }
 }

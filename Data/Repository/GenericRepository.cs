@@ -7,9 +7,9 @@ namespace DressUpExchange.Data.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private static DressUpExchanceContext Context;
+        private static DressupExchanceContext Context;
         private static DbSet<T> Table { get; set; }
-        public GenericRepository(DressUpExchanceContext context)
+        public GenericRepository(DressupExchanceContext context)
         {
             Context = context;
             Table = Context.Set<T>();

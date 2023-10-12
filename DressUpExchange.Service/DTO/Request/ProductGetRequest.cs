@@ -1,4 +1,5 @@
 ﻿using DressUpExchange.Service.DTO.Response;
+using DressUpExchange.Service.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace DressUpExchange.Service.DTO.Request
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
+        public SortOrder? SortOrder { get; set; }
         public string? Status { get; set; } = "Active";
         public int? Quantity { get; set; }
         public string? Thumbnail { get; set; }

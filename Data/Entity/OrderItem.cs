@@ -8,13 +8,15 @@ namespace DressUpExchange.Data.Entity
         public int OrderItemId { get; set; }
         public int? OrderId { get; set; }
         public int? ProductId { get; set; }
-
-        public int? UserSavedVoucherId { get; set; } = null;
+        public int? VoucherId { get; set; }
         public int? Quantity { get; set; }
         public string? Status { get; set; }
+        public string? Price { get; set; }
+        public int? LaundryId { get; set; }
 
+        public virtual Laundry? Laundry { get; set; }
         public virtual Order? Order { get; set; }
         public virtual Product? Product { get; set; }
-        public virtual UserSavedVoucher? UserSavedVoucher { get; set; }
+        public virtual Voucher? Voucher { get; set; }
     }
 }

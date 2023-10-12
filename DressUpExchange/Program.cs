@@ -28,7 +28,7 @@ builder.Services.AddScoped<IVourcherService, VoucherService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(Mapping));
-builder.Services.AddScoped<DressUpExchanceContext>();
+builder.Services.AddScoped<DressupExchanceContext>();
 
 // Add authentication and configure JWT
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

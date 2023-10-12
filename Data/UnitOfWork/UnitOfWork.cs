@@ -10,8 +10,8 @@ namespace DressUpExchange.Data.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DressUpExchanceContext _context;
-        public UnitOfWork(DressUpExchanceContext context)
+        private readonly DressupExchanceContext _context;
+        public UnitOfWork(DressupExchanceContext context)
         {
             _context = context;
         }

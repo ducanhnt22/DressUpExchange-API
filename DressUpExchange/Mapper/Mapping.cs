@@ -10,6 +10,7 @@ namespace DressUpExchange.API.Mapper
         public Mapping()
         {
             CreateMap<User, CustomerRequest>().ReverseMap();
+
             CreateMap<User, UserRequest>()
                 .ForMember(dex => dex.Id, opt => opt.MapFrom(src => src.UserId))
                 .ForMember(dex => dex.PhoneNumber, opt => opt.MapFrom(src => src.PhoneNumber))
@@ -20,6 +21,7 @@ namespace DressUpExchange.API.Mapper
                 .ReverseMap();
             CreateMap<CustomerRequest, UserResponse>()
                 .ForMember(dex => dex.Id, opt => opt.MapFrom(src => src.Id))
+
                 .ForMember(dex => dex.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
                 .ReverseMap();
             CreateMap<RegisterRequest, User>().ReverseMap();
@@ -31,6 +33,7 @@ namespace DressUpExchange.API.Mapper
             CreateMap<Product, ProductRequest>().ReverseMap();
             CreateMap<Product, ProductGetRequest>().ReverseMap();
             CreateMap<Product, ProductResponse>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.ProductImages))
                 .ReverseMap();
 
@@ -68,7 +71,8 @@ namespace DressUpExchange.API.Mapper
                 .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.discountAmount))
                 .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.expireDate))
                 .ReverseMap();
-
+            //CreateMap<OrderItem, OrderItemsRequest>().ForMember(dex => dex.Price, opt => opt.MapFrom(src => src.Price)).ReverseMap();
+            //CreateMap<OrderItem, OrderItemResponse>().ForMember(dex => dex.price, opt => opt.MapFrom(src => src.Price)).ReverseMap();
 
             }
     }
