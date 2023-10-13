@@ -15,7 +15,8 @@ namespace DressUpExchange.Service.DTO.Request
         public string? Name { get; set; }
         public string? Description { get; set; }
         public decimal? Price { get; set; }
-        public SortOrder? SortOrder { get; set; }
+        public SortOrder? SortOrderPrice { get; set; }
+        public SortOrder? SortOrderProductId { get; set; }
         public string? Status { get; set; } = "Active";
         public int? Quantity { get; set; }
         public string? Thumbnail { get; set; }
