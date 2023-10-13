@@ -14,7 +14,6 @@ namespace DressUpExchange.Service.DTO.Response
         public int? quantityBuy { get; set; }
         public string? status { get;set; }
         public string? price { get;set; }
-        public List<LaundryResponse> Laundry { get; set; } = new List<LaundryResponse>();
-
+        public List<LaundryResponse> Laundry { get; set; }
     }
 }

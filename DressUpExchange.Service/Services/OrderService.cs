@@ -78,10 +78,15 @@ namespace DressUpExchange.Service.Services
 
         public async Task<GeneralOrderResponse> GetOrderByCustomer(int userID, OrderPagingRequest orderPaging)
         {
-            var generalOrderResponse = await QueryFormat.GetOrders(userID,orderPaging.Status,orderPaging.Page,orderPaging.PageSize);
-   
-            
-            return generalOrderResponse;
+  
+            List<OrderResponse> response = await QueryFormat.GetOrders(userID, orderPaging.Status, orderPaging.Page, orderPaging.PageSize);
+            GeneralOrderResponse response1 = new GeneralOrderResponse()
+            {
+                orderResponses = response,
+                total = response.Count()
+            };
+
+            return response1;
                                     
         }
 
