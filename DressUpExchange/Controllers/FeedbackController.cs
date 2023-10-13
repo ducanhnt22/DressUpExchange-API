@@ -2,8 +2,10 @@
 using DressUpExchange.Service.DTO.Response;
 using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Services;
+using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace DressUpExchange.API.Controllers
 {
@@ -28,7 +30,10 @@ namespace DressUpExchange.API.Controllers
 
             bool check = await _feedbackService.AddNewFeedback(id, feedbackRequest);
 
-            return Ok("Create Feedback Sucessfully");
+            return Ok(new
+            {
+                Message = "Create Feedback Sucessfully"
+            });
         }
 
         [Authorize(Roles = RoleNames.Customer)]
@@ -37,7 +42,10 @@ namespace DressUpExchange.API.Controllers
         {
 
             await _feedbackService.UpdateNewFeedback(id, feedbackRequest);
-            return Ok("Update Feedback Sucessfully");
+            return Ok(new
+            {
+                Message = "Update Feedback Sucessfully"
+            });
         }
 
         [Authorize(Roles = RoleNames.Customer)]
@@ -45,7 +53,10 @@ namespace DressUpExchange.API.Controllers
         public async Task<ActionResult> DeleteFeedback(int id)
         {
             await _feedbackService.DeleteFeedback(id);
-            return Ok("Delete Feedback Sucessfully");
+            return Ok(new
+            {
+                Message = "Delete Feedback Sucessfully"
+            });
         }
 
         [Authorize(Roles = RoleNames.Customer)]
