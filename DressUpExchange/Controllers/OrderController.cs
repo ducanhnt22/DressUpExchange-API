@@ -27,11 +27,17 @@ namespace DressUpExchange.API.Controllers
             return Ok(generalOrderResponse);
         }
 
-        [Authorize(Roles = RoleNames.Customer)]
         [HttpGet("{id:int}")]
         public async Task<ActionResult<GeneralOrderResponse>> GetOrder(int id, [FromQuery] OrderPagingRequest pagingRequest)
         {
             GeneralOrderResponse generalOrderResponse = await _orderService.GetOrderByCustomer(id,pagingRequest);
+            return Ok(generalOrderResponse);
+        }
+        
+        [HttpGet("orderId/{id:int}")]
+        public async Task<ActionResult<GeneralOrderResponse>> GetOrderByOrderId(int id, [FromQuery] OrderPagingRequest pagingRequest)
+        {
+            GeneralOrderResponse generalOrderResponse = await _orderService.GetOrderByOrderId(id,pagingRequest);
             return Ok(generalOrderResponse);
         }
         [Authorize(Roles = RoleNames.Customer)]

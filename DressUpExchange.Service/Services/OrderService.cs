@@ -19,7 +19,7 @@ namespace DressUpExchange.Service.Services
     {
         Task<bool> AddNewOrder(OrderRequest orderRequest);
         Task<GeneralOrderResponse> GetOrderByCustomer(int userID,OrderPagingRequest orderPaging);
-
+        Task<GeneralOrderResponse> GetOrderByOrderId(int OrderId, OrderPagingRequest orderPaging);
         Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest);
     }
     public class OrderService : IOrderService
@@ -56,6 +56,8 @@ namespace DressUpExchange.Service.Services
                 orderItem.ProductId = item.ProductId; orderItem.OrderId = orderItemNew;
                 orderItem.Status = OrderState.Processing.ToString();
                 orderItem.VoucherId = item.VoucherId;
+                orderItem.LaundryId = item.LaundryId;
+                orderItem.Price = item.Price.ToString();
                 await _unitOfWork.Repository<OrderItem>().CreateAsync(orderItem);
                 _unitOfWork.Commit();
             }
@@ -80,6 +82,19 @@ namespace DressUpExchange.Service.Services
         {
   
             List<OrderResponse> response = await QueryFormat.GetOrders(userID, orderPaging.Status, orderPaging.Page, orderPaging.PageSize);
+            GeneralOrderResponse response1 = new GeneralOrderResponse()
+            {
+                orderResponses = response,
+                total = response.Count()
+            };
+
+            return response1;
+                                    
+        }
+        public async Task<GeneralOrderResponse> GetOrderByOrderId(int OrderId, OrderPagingRequest orderPaging)
+        {
+  
+            List<OrderResponse> response = await QueryFormat.GetOrdersByOrderId(OrderId, orderPaging.Status, orderPaging.Page, orderPaging.PageSize);
             GeneralOrderResponse response1 = new GeneralOrderResponse()
             {
                 orderResponses = response,
