@@ -13,16 +13,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using Twilio.Clients;
+using DressUpExchange.Service.Ultilities;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var container = new ServiceCollection();
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<MyMemoryCache>();
 builder.Services.AddScoped<IFileStorageService, FirebaseStorageService>();
+container.AddHttpClient<ITwilioRestClient,TwilioRestClient>();
 builder.Services.AddScoped<IFeedbackService, FeedbackService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddScoped<ISendSSMSService, SendSMSService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IVourcherService, VoucherService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
