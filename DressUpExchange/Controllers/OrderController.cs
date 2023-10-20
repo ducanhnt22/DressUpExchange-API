@@ -45,7 +45,10 @@ namespace DressUpExchange.API.Controllers
         public async Task<ActionResult> CreateOrder(OrderRequest orderRequest)
         {
             await _orderService.AddNewOrder(orderRequest);
-            return Ok("Đơn hàng đã được tạo");
+            return Ok(new
+            {
+                msp = "Đơn hàng đã được tạo"
+            });
         }
     }
 }

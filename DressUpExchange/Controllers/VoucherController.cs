@@ -35,14 +35,20 @@ namespace DressUpExchange.API.Controllers
                 voucherRequest.UserId = userId;
             }
             await _voucherService.CreateNewVoucher(ProductID, voucherRequest);
-            return Ok("Create Voucher Successfully");
+            return Ok(new
+            {
+                msg = "Create Voucher Successfully"
+            });
         }
         [Authorize(Roles = RoleNames.Customer)]
         [HttpPut]
         public async Task<ActionResult> UpdradeVoucher(int ProductID, [FromBody] UpdateVoucherRequest updateVoucherRequest)
         {
             await _voucherService.UpdateVoucher(ProductID, updateVoucherRequest);
-            return Ok("Update voucher sucessfully");
+            return Ok(new
+            {
+                msg = "Update voucher sucessfully"
+            });
         }
 
         [Authorize(Roles = RoleNames.Customer)]
@@ -50,7 +56,10 @@ namespace DressUpExchange.API.Controllers
         public async Task<ActionResult> DeleteVoucher(int VoucherID)
         {
             await _voucherService.DeleteVoucher(VoucherID);
-            return Ok("Delete Voucher Sucessfully");
+            return Ok(new
+            {
+                msg = "Delete Voucher Sucessfully"
+            });
         }
 
         //[Authorize(Roles = RoleNames.Customer)]

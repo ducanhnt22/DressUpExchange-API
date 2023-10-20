@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DressUpExchange.Data.Entity
@@ -17,7 +18,8 @@ namespace DressUpExchange.Data.Entity
         public string? Code { get; set; }
         public decimal? DiscountAmount { get; set; }
         public int? RemainingCount { get; set; }
-        public DateTime? ExpireDate { get; set; }
+        [JsonIgnore]
+        public DateTime? ExpireDate { get; set; } = DateTime.UtcNow;
         public string? Status { get; set; }
 
         public virtual Product? Product { get; set; }
