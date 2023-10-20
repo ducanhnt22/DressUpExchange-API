@@ -25,8 +25,6 @@ namespace DressUpExchange.Service.Services
     }
     public class SendSMSService : ISendSSMSService
     {
-
-
         private readonly IConfiguration _config;
         private readonly IMemoryCache _memory;
         private readonly IUnitOfWork _unitOfWork;
