@@ -31,10 +31,17 @@
 	  <PackageReference Include="NTQ.Sdk.Core" Version="1.1.6" />
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	  <PackageReference Include="Twilio" Version="6.8.0" />
+	  <PackageReference Include="VNPayPackage" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DressUpExchange.Service\DressUpExchange.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

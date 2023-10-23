@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VIAuicWntJ2C2wsoy0dtBkqlXO4r/ccmXw6W3+C1gPWqzY8D2RzpCvfe8yLETb0oFULpD/2Kpjc422AyRb9Vjw==",
+  "dgSpecHash": "0JbA6q0U1htWn6xfkF6uon3TgD8QYze4NRqGvPsRccs1pj8bvLPZO477AJQGRFHnMHKCEmqZuqRfamb1F4+FDg==",
   "success": true,
   "projectFilePath": "D:\\DressUpExchange-API\\DressUpExchange\\DressUpExchange.API.csproj",
   "expectedPackageFiles": [
@@ -268,7 +268,8 @@
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Duc Anh\\.nuget\\packages\\twilio\\6.8.0\\twilio.6.8.0.nupkg.sha512"
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\twilio\\6.8.0\\twilio.6.8.0.nupkg.sha512",
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\vnpaypackage\\2.1.0\\vnpaypackage.2.1.0.nupkg.sha512"
   ],
   "logs": []
 }

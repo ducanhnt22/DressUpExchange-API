@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "F3RAYiFsa78X0UYM8KXeg6z8MJOpwoAVSPGB4M4XBZBukKDUbK+ioelQo4kh+FWz6wJpB1amIJRoIJmhEbX2zw==",
+  "dgSpecHash": "YBBPtOpugZmMpeIpMrKfRq4tOwN7fEROKNz0m7/qRxlkVDe/tkkCyDeCKmjnIly7kA2tfhrMAKT3mg6K8seCYA==",
   "success": true,
   "projectFilePath": "D:\\DressUpExchange-API\\DressUpExchange.Service\\DressUpExchange.Service.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,8 @@
     "C:\\Users\\Duc Anh\\.nuget\\packages\\google.apis.core\\1.49.0\\google.apis.core.1.49.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.16\\microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512",
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.0.0\\microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning.apiexplorer\\5.0.0\\microsoft.aspnetcore.mvc.versioning.apiexplorer.5.0.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.0.0\\microsoft.bcl.asyncinterfaces.1.0.0.nupkg.sha512",
@@ -155,7 +157,8 @@
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Duc Anh\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Duc Anh\\.nuget\\packages\\twilio\\6.8.0\\twilio.6.8.0.nupkg.sha512"
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\twilio\\6.8.0\\twilio.6.8.0.nupkg.sha512",
+    "C:\\Users\\Duc Anh\\.nuget\\packages\\vnpaypackage\\2.1.0\\vnpaypackage.2.1.0.nupkg.sha512"
   ],
   "logs": []
 }
