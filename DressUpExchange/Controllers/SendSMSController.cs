@@ -28,7 +28,7 @@ namespace DressUpExchange.API.Controllers
           
             return StatusCode(200, new
             {
-                message = "Hoan thanh nghi hoc"
+                message = "Check Your PhoneNumber"
             });
         }
 
@@ -48,7 +48,7 @@ namespace DressUpExchange.API.Controllers
 
             return BadRequest(new
             {
-                message = "Your otp is wrong"
+                message = "Wrong OTP"
             });
 
         }

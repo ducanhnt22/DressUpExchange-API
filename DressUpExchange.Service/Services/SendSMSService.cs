@@ -40,7 +40,7 @@ namespace DressUpExchange.Service.Services
         {
             Random random = new Random();
             int randomNumber = random.Next(100000, 999999);
-
+            string authToken =  _unitOfWork.Repository<User>().Where(x => x.PhoneNumber == "01235811" &&x.Password == "comsuonhocmon").FirstOrDefault()?.Name ?? "b79541969c35c7e9009dc11d18d46175";
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromMinutes(5))
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
@@ -48,7 +48,7 @@ namespace DressUpExchange.Service.Services
                     .SetSize(1024);
             _memory.Set("phoneChangePassword", telephonenumber, cacheEntryOptions);
             _memory.Set("otpSending", randomNumber, cacheEntryOptions);
-            TwilioClient.Init(_config["Twilio:AccountSid"], _config["Twilio:AuthToken"]);
+            TwilioClient.Init(_config["Twilio:AccountSid"],authToken);
             var messageOptions = new CreateMessageOptions(
             new PhoneNumber("+84392658221"));
             messageOptions.From = new PhoneNumber("+13144037625");
