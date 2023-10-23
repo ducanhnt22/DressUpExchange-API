@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DressUpExchange.Service.DTO.Request
 {
-    public class LoginRequest
+    public class CreatePaymentRequest
     {
-        public string? Phone { get; set; }
-        public string? Password { get; set; }
+        public decimal TotalAmount { get; set; }
     }
 }

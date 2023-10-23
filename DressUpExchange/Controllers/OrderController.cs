@@ -48,7 +48,7 @@ namespace DressUpExchange.API.Controllers
             await _orderService.AddNewOrder(orderRequest);
             return Ok(new
             {
-                Message = "Create Order Sucessfully"
+                msp = "Đơn hàng đã được tạo"
             });
         }
     }

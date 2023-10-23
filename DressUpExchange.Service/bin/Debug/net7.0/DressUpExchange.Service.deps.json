@@ -22,7 +22,8 @@
           "Microsoft.Extensions.Configuration": "6.0.1",
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "NTQ.Sdk.Core": "1.1.6",
-          "Twilio": "6.8.0"
+          "Twilio": "6.8.0",
+          "VNPayPackage": "2.1.0"
         },
         "runtime": {
           "DressUpExchange.Service.dll": {}
@@ -168,6 +169,17 @@
             "assemblyVersion": "6.0.16.0",
             "fileVersion": "6.0.1623.17406"
           }
+        }
+      },
+      "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
+          "System.Text.Encodings.Web": "6.0.0"
+        }
+      },
+      "Microsoft.AspNetCore.Http.Features/2.2.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "6.0.0"
         }
       },
       "Microsoft.AspNetCore.Mvc.Versioning/5.0.0": {
@@ -1431,6 +1443,18 @@
           }
         }
       },
+      "VNPayPackage/2.1.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/net6.0/VNPayPackage.dll": {
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.0.0"
+          }
+        }
+      },
       "DressUpExchange.Data/1.0.0": {
         "dependencies": {
           "AutoMapper": "12.0.1",
@@ -1541,6 +1565,20 @@
       "sha512": "sha512-T4AkjPXOYDqDnfb8PRRHNbB2ozLg9J7CsRZ+jH1MfQGshkFosdwja9c4+QVbKm+1qeLPxul+3weSz+DEvFkA5w==",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/6.0.16",
       "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.6.0.16.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Nxs7Z1q3f1STfLYKJSVXCs1iBl+Ya6E8o4Oy1bCxJ/rNI44E/0f6tbsrVqAWfB7jlnJfyaAtIalBVxPKUPQb4Q==",
+      "path": "microsoft.aspnetcore.http.abstractions/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Http.Features/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ziFz5zH8f33En4dX81LW84I6XrYXKf9jg6aM39cM+LffN9KJahViKZ61dGMSO2gd3e+qe5yBRwsesvyqlZaSMg==",
+      "path": "microsoft.aspnetcore.http.features/2.2.0",
+      "hashPath": "microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Mvc.Versioning/5.0.0": {
       "type": "package",
@@ -2521,6 +2559,13 @@
       "sha512": "sha512-LSsT0A9FEfsM6583bH+lUIk62gbjMEix6FYXq6LcZEvUjJ7zZG+pjl1xADhL4A/NUnGjgtg2d6LEodeWo+3pOA==",
       "path": "twilio/6.8.0",
       "hashPath": "twilio.6.8.0.nupkg.sha512"
+    },
+    "VNPayPackage/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jfUENvVapSfPzh7puB+Dx2zU18mZeqb9wnHhH7RntFoDRa1INZX0TRvAUmLuEudvJ6VF1JJ4w2hS7crAxpmfAA==",
+      "path": "vnpaypackage/2.1.0",
+      "hashPath": "vnpaypackage.2.1.0.nupkg.sha512"
     },
     "DressUpExchange.Data/1.0.0": {
       "type": "project",

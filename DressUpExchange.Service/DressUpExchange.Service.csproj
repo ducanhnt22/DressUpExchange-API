@@ -26,6 +26,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 		<PackageReference Include="NTQ.Sdk.Core" Version="1.1.6" />
 		<PackageReference Include="Twilio" Version="6.8.0" />
+		<PackageReference Include="VNPayPackage" Version="2.1.0" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Data\DressUpExchange.Data.csproj" />

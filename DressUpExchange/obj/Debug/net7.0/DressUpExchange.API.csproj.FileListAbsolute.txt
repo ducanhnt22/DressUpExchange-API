@@ -529,8 +529,8 @@ C:\Code\EXE_API\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExch
 C:\Code\EXE_API\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExchange.API.genruntimeconfig.cache
 C:\Code\EXE_API\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\ref\DressUpExchange.API.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\appsettings.Development.json
-D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\appsettings.json
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\DressUpExchange.API.exe
+D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\appsettings.json
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\DressUpExchange.API.deps.json
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\DressUpExchange.API.runtimeconfig.json
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\DressUpExchange.API.dll
@@ -617,6 +617,7 @@ D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\System.Security.Cryptogr
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\System.Security.Permissions.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\System.Windows.Extensions.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\Twilio.dll
+D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\VNPayPackage.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\af\Humanizer.resources.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\ar\Humanizer.resources.dll
 D:\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\az\Humanizer.resources.dll
@@ -793,3 +794,4 @@ D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\refint\DressUpExchange.A
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExchange.API.pdb
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExchange.API.genruntimeconfig.cache
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\ref\DressUpExchange.API.dll
+C:\Code\EXE_API\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\VNPayPackage.dll

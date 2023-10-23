@@ -4544,6 +4544,23 @@
           }
         }
       },
+      "VNPayPackage/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/net6.0/VNPayPackage.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/VNPayPackage.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "DressUpExchange.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -4584,7 +4601,8 @@
           "Microsoft.Extensions.Configuration": "6.0.1",
           "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "NTQ.Sdk.Core": "1.1.6",
-          "Twilio": "6.8.0"
+          "Twilio": "6.8.0",
+          "VNPayPackage": "2.1.0"
         },
         "compile": {
           "bin/placeholder/DressUpExchange.Service.dll": {}
@@ -12322,6 +12340,20 @@
         "twilio.nuspec"
       ]
     },
+    "VNPayPackage/2.1.0": {
+      "sha512": "jfUENvVapSfPzh7puB+Dx2zU18mZeqb9wnHhH7RntFoDRa1INZX0TRvAUmLuEudvJ6VF1JJ4w2hS7crAxpmfAA==",
+      "type": "package",
+      "path": "vnpaypackage/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/VNPayPackage.dll",
+        "lib/net6.0/VNPayPackage.xml",
+        "vnpaypackage.2.1.0.nupkg.sha512",
+        "vnpaypackage.nuspec"
+      ]
+    },
     "DressUpExchange.Data/1.0.0": {
       "type": "project",
       "path": "../Data/DressUpExchange.Data.csproj",
@@ -12353,7 +12385,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration >= 7.0.10",
       "NTQ.Sdk.Core >= 1.1.6",
       "Swashbuckle.AspNetCore >= 6.2.3",
-      "Twilio >= 6.8.0"
+      "Twilio >= 6.8.0",
+      "VNPayPackage >= 2.1.0"
     ]
   },
   "packageFolders": {
@@ -12475,6 +12508,10 @@
           "Twilio": {
             "target": "Package",
             "version": "[6.8.0, )"
+          },
+          "VNPayPackage": {
+            "target": "Package",
+            "version": "[2.1.0, )"
           }
         },
         "imports": [

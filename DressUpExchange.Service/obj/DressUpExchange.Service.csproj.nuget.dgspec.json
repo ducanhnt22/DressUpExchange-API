@@ -220,6 +220,10 @@
             "Twilio": {
               "target": "Package",
               "version": "[6.8.0, )"
+            },
+            "VNPayPackage": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [

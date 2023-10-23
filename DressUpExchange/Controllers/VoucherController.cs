@@ -38,7 +38,7 @@ namespace DressUpExchange.API.Controllers
             await _voucherService.CreateNewVoucher(ProductID, voucherRequest);
             return Ok(new
             {
-                message = "Create Voucher Successfully"
+                msg = "Create Voucher Successfully"
             });
         }
         [Authorize(Roles = RoleNames.Customer)]
@@ -48,7 +48,7 @@ namespace DressUpExchange.API.Controllers
             await _voucherService.UpdateVoucher(ProductID, updateVoucherRequest);
             return Ok(new
             {
-                Message = "Update Vourcher Sucessfully"
+                msg = "Update voucher sucessfully"
             });
         }
 
@@ -59,7 +59,7 @@ namespace DressUpExchange.API.Controllers
             await _voucherService.DeleteVoucher(VoucherID);
             return Ok(new
             {
-                message = "Delete Voucher Sucessfully"
+                msg = "Delete Voucher Sucessfully"
             });
         }
 

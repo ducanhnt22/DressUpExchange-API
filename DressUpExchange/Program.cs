@@ -32,6 +32,7 @@ builder.Services.AddScoped<ISendSSMSService, SendSMSService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IVourcherService, VoucherService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddScoped<DressupExchanceContext>();

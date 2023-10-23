@@ -1,4 +1,5 @@
-﻿using DressUpExchange.Service.Services;
+﻿using DressUpExchange.Service.DTO.Request;
+using DressUpExchange.Service.Services;
 using Microsoft.AspNetCore.Mvc;
 using Twilio;
 using Twilio.Clients;
@@ -54,9 +55,9 @@ namespace DressUpExchange.API.Controllers
         }
 
         [HttpPost("ChangePassword")]
-        public async Task<ActionResult> ChangePassword(string phoneNumber, [FromBody]string passwordChange)
+        public async Task<ActionResult> ChangePassword(string phoneNumber, [FromBody] ForgetPasswordRequestt req)
         {
-        bool check =  await  _service.ChangePassword(phoneNumber, passwordChange);
+        bool check =  await  _service.ChangePassword(phoneNumber, req.passwordChange);
             if (check)
             {
                 return Ok(new
@@ -68,7 +69,6 @@ namespace DressUpExchange.API.Controllers
             {
                 message = "Change Password UnSucessfully"
             });
-
         }
     }
 }

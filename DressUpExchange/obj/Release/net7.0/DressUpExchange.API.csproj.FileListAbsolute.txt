@@ -528,3 +528,4 @@ D:\DressUpExchange-API\DressUpExchange\obj\Release\net7.0\refint\DressUpExchange
 D:\DressUpExchange-API\DressUpExchange\obj\Release\net7.0\DressUpExchange.API.pdb
 D:\DressUpExchange-API\DressUpExchange\obj\Release\net7.0\DressUpExchange.API.genruntimeconfig.cache
 D:\DressUpExchange-API\DressUpExchange\obj\Release\net7.0\ref\DressUpExchange.API.dll
+D:\DressUpExchange-API\DressUpExchange\bin\Release\net7.0\VNPayPackage.dll
