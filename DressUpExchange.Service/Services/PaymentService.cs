@@ -35,6 +35,8 @@ namespace DressUpExchange.Service.Services
             var url = _configuration["VNPay:vnp_Url"];
             var return_url = _configuration["VNPay:vnp_Returnurl"];
 
+            var dateTime = DateTime.UtcNow.AddHours(7);
+
             VnPayLibrary lib = new VnPayLibrary();
 
             lib.AddRequestData("vnp_Version", "2.1.0");
@@ -43,14 +45,14 @@ namespace DressUpExchange.Service.Services
 
             lib.AddRequestData("vnp_Amount", (totalAmount).ToString());
             lib.AddRequestData("vnp_BankCode", "NCB");
-            lib.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            lib.AddRequestData("vnp_CreateDate", dateTime.ToString("yyyyMMddHHmmss"));
             lib.AddRequestData("vnp_CurrCode", "VND");
             lib.AddRequestData("vnp_IpAddr", Utils.GetIpAddress());
             lib.AddRequestData("vnp_Locale", "vn");
             lib.AddRequestData("vnp_OrderInfo", "aaaa");
             lib.AddRequestData("vnp_OrderType", "other");
             lib.AddRequestData("vnp_ReturnUrl", return_url);
-            lib.AddRequestData("vnp_TxnRef", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            lib.AddRequestData("vnp_TxnRef", dateTime.ToString("yyyyMMddHHmmss"));
 
             string fin = lib.CreateRequestUrl(url, hash_secret);
             return fin;
