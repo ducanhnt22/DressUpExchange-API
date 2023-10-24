@@ -117,7 +117,7 @@ namespace DressUpExchange.Service.Services
             {
                 throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Sold out", product.ProductId.ToString());
             }
-            product.Quantity = quantity;
+            product.Quantity -= quantity;
             await _unitOfWork.Repository<Product>().Update(product, (int)productId);
             _unitOfWork.Commit();
             return true;

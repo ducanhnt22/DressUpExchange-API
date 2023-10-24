@@ -22,5 +22,14 @@ namespace DressUpExchange.API.Controllers
                 url = rs
             }) : BadRequest();
         }
+        [HttpPost("order-payment")]
+        public async Task<ActionResult> CreateOrderPayment([FromBody] OrderRequest req)
+        {
+            var rs = await _service.OrderPaymentAsync(req);
+            return rs != null ? Ok(new
+            {
+                url = rs
+            }) : BadRequest();
+        }
     }
 }
