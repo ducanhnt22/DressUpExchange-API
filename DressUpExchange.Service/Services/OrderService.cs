@@ -7,6 +7,7 @@ using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Exceptions;
 using DressUpExchange.Service.Helpers;
 using DressUpExchange.Service.Ultilities;
+using DressUpExchange.Service.Ultilities.HandleError;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -105,17 +106,17 @@ namespace DressUpExchange.Service.Services
                                     
         }
 
-        public async Task<bool> UpdateQuantityProduct(int? productId, int? quantity)
+        private async Task<bool> UpdateQuantityProduct(int? productId, int? quantity)
         {
             Product? product = _unitOfWork.Repository<Product>().Where(x => x.ProductId == productId).FirstOrDefault() ?? null;
             if (product == null)
             {
-                throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Not Found Product", "");
+                throw new HttpStatusCodeException(System.Net.HttpStatusCode.BadRequest, "Not Found Product");
 
             }
             if (product.Quantity == 0)
             {
-                throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Sold out", product.ProductId.ToString());
+                throw new HttpStatusCodeException(System.Net.HttpStatusCode.BadRequest, "Sold out");
             }
             product.Quantity -= quantity;
             await _unitOfWork.Repository<Product>().Update(product, (int)productId);
