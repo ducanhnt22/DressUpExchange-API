@@ -18,6 +18,7 @@ namespace DressUpExchange.Service.Services
     {
         Task<string> PaymentAsync(decimal totalAmount);
         Task<string> OrderPaymentAsync(OrderRequest req);
+        bool CheckQuantityProduct(int? productId);
     }
     public class PaymentService : IPaymentService
     {
@@ -93,6 +94,14 @@ namespace DressUpExchange.Service.Services
 
             string fin = lib.CreateRequestUrl(url, hash_secret);
             return fin;
+        }
+        public bool CheckQuantityProduct(int? productId)
+        {
+            Product? product = _unitOfWork.Repository<Product>().Where(x => x.ProductId == productId).FirstOrDefault() ?? null;
+            if (product.Quantity == 0)
+            {
+                return false;
+            } return true;
         }
         private async Task<bool> UpdateQuantityProduct(int? productId, int? quantity)
         {
