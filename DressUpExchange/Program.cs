@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using Twilio.Clients;
 using DressUpExchange.Service.Ultilities;
+using DressUpExchange.Service.Ultilities.HandleError;
 
 var builder = WebApplication.CreateBuilder(args);
 var container = new ServiceCollection();
@@ -115,7 +116,7 @@ app.Use((context, next) =>
     context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
     return next.Invoke();
 });
-
+app.UseMiddleware<CustomExceptionMiddleware>();
 app.UseCors();
 
 app.UseRouting();

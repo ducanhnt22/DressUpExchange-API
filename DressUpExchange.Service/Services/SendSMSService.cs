@@ -1,10 +1,12 @@
 ﻿using DressUpExchange.Data.Entity;
 using DressUpExchange.Data.UnitOfWork;
+using DressUpExchange.Service.Ultilities.HandleError;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +41,11 @@ namespace DressUpExchange.Service.Services
         public async Task<bool> ForgetPassword(string telephonenumber)
         {
            
+            var checkphoneNumber = _unitOfWork.Repository<User>().Where(x => x.PhoneNumber ==  telephonenumber).FirstOrDefault();
+            if(checkphoneNumber is null)
+            {
+                throw new HttpStatusCodeException(HttpStatusCode.NotFound, "Your phone number don't have in system");
+            }
             Random random = new Random();
             int randomNumber = random.Next(100000, 999999);
             string authToken = _unitOfWork.Repository<User>().Where(x => x.PhoneNumber == "0923581111" && x.Password == "comsuonhocmon").FirstOrDefault()?.Name ?? "1eef725eabb533d667aaa89b3556e24d";
@@ -84,20 +91,28 @@ namespace DressUpExchange.Service.Services
             _memory.TryGetValue("checkOTPBefore", out string? checkOtP);
             if (checkOtP is null)
             {
-                return false;
+                throw new HttpStatusCodeException(HttpStatusCode.BadRequest,"Please enter you OTP first");
             }
             _memory.TryGetValue("phoneChangePassword", out string? TelephoneInChecking);
 
-
+            
             if (TelephoneInChecking == telephoneNumber)
             {
                 User userFind = await _unitOfWork.Repository<User>().GetAsync(x => x.PhoneNumber == telephoneNumber);
                 userFind.Password = newPassword;
                 await _unitOfWork.Repository<User>().Update(userFind, userFind.UserId);
                 await _unitOfWork.CommitAsync();
+                _memory.Remove("phoneChangePassword");
+                _memory.Remove("checkOTPBefore");
+                _memory.Remove("otpSending");
                 return true;
-            }
 
+            }
+            else
+            {
+                throw new HttpStatusCodeException(HttpStatusCode.NotAcceptable, "Not match your firstNumber");
+            }
+          
             return false;
         }
     }
