@@ -794,3 +794,4 @@ D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\refint\DressUpExchange.A
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExchange.API.pdb
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\DressUpExchange.API.genruntimeconfig.cache
 D:\DressUpExchange-API\DressUpExchange\obj\Debug\net7.0\ref\DressUpExchange.API.dll
+C:\Code\EXE_API\DressUpExchange-API\DressUpExchange\bin\Debug\net7.0\VNPayPackage.dll

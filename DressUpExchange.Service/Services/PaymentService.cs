@@ -54,8 +54,11 @@ namespace DressUpExchange.Service.Services
             await _unitOfWork.Repository<Order>().CreateAsync(order);
             await _unitOfWork.CommitAsync();
 
-            int newOrderItemId = _unitOfWork.Repository<Order>().Find(x => x.OrderDate == dateTime).OrderId;
-            foreach(var item in req.OrderItemsRequest)
+            List<Order> newOrderItem = await _unitOfWork.Repository<Order>().GetWhere(x => x.OrderDate == dateTime);
+            Order lastOrder = newOrderItem.OrderByDescending(x => x.OrderDate).FirstOrDefault();
+            int newOrderItemId = lastOrder.OrderId;
+
+            foreach (var item in req.OrderItemsRequest)
             {
                 await UpdateQuantityProduct(item.ProductId, item.Quantity);
                 OrderItem orderItem = new OrderItem();
@@ -77,7 +80,7 @@ namespace DressUpExchange.Service.Services
             lib.AddRequestData("vnp_Command", "pay");
             lib.AddRequestData("vnp_TmnCode", code);
 
-            lib.AddRequestData("vnp_Amount", order.TotalAmount.ToString());
+            lib.AddRequestData("vnp_Amount", (order.TotalAmount * 100).ToString());
             lib.AddRequestData("vnp_BankCode", "NCB");
             lib.AddRequestData("vnp_CreateDate", formatDate);
             lib.AddRequestData("vnp_CurrCode", "VND");
