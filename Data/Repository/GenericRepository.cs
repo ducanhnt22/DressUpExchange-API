@@ -96,7 +96,7 @@ namespace DressUpExchange.Data.Repository
             if (includes != null)
             {
                 query = includes.Aggregate(query, (current, include) => current.Include(include));
-            }
+            }   
             return query;
         }
         public async Task<T> GetSingleAsync(Expression<Func<T, bool>> filter)

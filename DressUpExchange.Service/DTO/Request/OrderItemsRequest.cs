@@ -15,7 +15,7 @@ namespace DressUpExchange.Service.DTO.Request
         public int? VoucherId { get; set; } 
         public int? LaundryId { get; set; }
         public decimal? Price { get; set; }
-        public int? Quantity { get; set; }
+        public int? BuyingQuantity { get; set; }
         [JsonIgnore]
         public string? Status { get; set; } = OrderState.Processing.ToString();
     }

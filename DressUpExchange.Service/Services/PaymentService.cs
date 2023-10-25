@@ -4,6 +4,7 @@ using DressUpExchange.Service.DTO.Request;
 using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Exceptions;
 using DressUpExchange.Service.Ultilities;
+using DressUpExchange.Service.Ultilities.HandleError;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -61,9 +62,9 @@ namespace DressUpExchange.Service.Services
 
             foreach (var item in req.OrderItemsRequest)
             {
-                await UpdateQuantityProduct(item.ProductId, item.Quantity);
+                await UpdateQuantityProduct(item.ProductId, item.BuyingQuantity);
                 OrderItem orderItem = new OrderItem();
-                orderItem.Quantity = item.Quantity;
+                orderItem.Quantity = item.BuyingQuantity;
                 orderItem.ProductId = item.ProductId; orderItem.OrderId = newOrderItemId;
                 orderItem.Status = OrderState.Processing.ToString();
                 orderItem.VoucherId = item.VoucherId;
@@ -108,12 +109,12 @@ namespace DressUpExchange.Service.Services
             Product? product = _unitOfWork.Repository<Product>().Where(x => x.ProductId == productId).FirstOrDefault() ?? null;
             if (product == null)
             {
-                throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Not Found Product", "");
+                throw new HttpStatusCodeException(System.Net.HttpStatusCode.BadRequest, "Not Found Product");
 
             }
             if (product.Quantity == 0)
             {
-                throw new CrudException(System.Net.HttpStatusCode.BadRequest, "Sold out", product.ProductId.ToString());
+                throw new HttpStatusCodeException(System.Net.HttpStatusCode.BadRequest, "Sold out");
             }
             product.Quantity -= quantity;
             await _unitOfWork.Repository<Product>().Update(product, (int)productId);

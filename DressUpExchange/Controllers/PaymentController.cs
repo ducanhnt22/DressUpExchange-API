@@ -25,16 +25,16 @@ namespace DressUpExchange.API.Controllers
         [HttpPost("order-payment")]
         public async Task<ActionResult> CreateOrderPayment([FromBody] OrderRequest req)
         {
-            var check = _service.CheckQuantityProduct();
-            if (check)
-            {
+            //var check = _service.CheckQuantityProduct(req.);
+            //if (check)
+            //{
                 var rs = await _service.OrderPaymentAsync(req);
                 return rs != null ? Ok(new
                 {
                     url = rs
                 }) : BadRequest();
-            }
-            return NotFound();
+            //}
+            //return NotFound();
                 
         }
     }

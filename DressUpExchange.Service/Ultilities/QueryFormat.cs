@@ -43,7 +43,7 @@ namespace DressUpExchange.Service.Ultilities
                                                                           {
                                                                               ProductID = product.ProductId,
                                                                               ProductName = product.Name,
-                                                                              quantityBuy = (int)or1.Quantity,
+                                                                              BuyingQuantity = (int)or1.Quantity,
                                                                               status = or1.Status,
                                                                               price = or1.Price
                                                                           }
@@ -66,7 +66,7 @@ namespace DressUpExchange.Service.Ultilities
                                             {
                                                 ProductID = product.ProductId,
                                                 ProductName = product.Name,
-                                                quantityBuy = (int)product.Quantity,
+                                                BuyingQuantity = (int)product.Quantity,
                                                 status = ots.Status,
                                                 price = ots.Price
                                             }).ToList()
@@ -84,7 +84,7 @@ namespace DressUpExchange.Service.Ultilities
                                              {
                                                  ProductID = product.ProductId,
                                                  ProductName = product.Name,
-                                                 quantityBuy = orderItemSp.Quantity,
+                                                 BuyingQuantity = orderItemSp.Quantity,
                                                  price = orderItemSp.Price,
                                                  status = orderItemSp.Status,
                                                  Laundry = (from orderItemSp2 in _context.OrderItems
@@ -152,7 +152,7 @@ namespace DressUpExchange.Service.Ultilities
                                              {
                                                  ProductID = product.ProductId,
                                                  ProductName = product.Name,
-                                                 quantityBuy = orderItemSp.Quantity,
+                                                 BuyingQuantity = orderItemSp.Quantity,
                                                  price = orderItemSp.Price,
                                                  status = orderItemSp.Status,
                                                  Laundry = (from orderItemSp2 in _context.OrderItems
@@ -219,7 +219,7 @@ namespace DressUpExchange.Service.Ultilities
                                              {
                                                  ProductID = product.ProductId,
                                                  ProductName = product.Name,
-                                                 quantityBuy = orderItemSp.Quantity,
+                                                 BuyingQuantity = orderItemSp.Quantity,
                                                  price = orderItemSp.Price,
                                                  status = orderItemSp.Status,
                                                  Laundry = (from orderItemSp2 in _context.OrderItems

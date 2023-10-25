@@ -29,7 +29,7 @@ namespace DressUpExchange.API.Controllers
           
             return StatusCode(200, new
             {
-                message = "Check Your PhoneNumber"
+                message = "Check Your Phone Number"
             });
         }
 
@@ -43,7 +43,7 @@ namespace DressUpExchange.API.Controllers
             {
                 return Ok(new
                 {
-                    message = "Correct otp"
+                    message = "Correct OTP"
                 });
             }
 
@@ -62,12 +62,12 @@ namespace DressUpExchange.API.Controllers
             {
                 return Ok(new
                 {
-                    message = "Change Password Sucessfully"
+                    message = "Change Password Successfully!"
                 });
             }
             return BadRequest(new
             {
-                message = "Change Password UnSucessfully"
+                message = "Change Password Fail!"
             });
         }
     }

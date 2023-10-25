@@ -11,7 +11,7 @@ namespace DressUpExchange.Service.DTO.Response
     {
         public int? ProductID { get; set; }
         public string? ProductName { get; set; }
-        public int? quantityBuy { get; set; }
+        public int? BuyingQuantity { get; set; }
         public string? status { get;set; }
         public string? price { get;set; }
         public List<LaundryResponse> Laundry { get; set; }
