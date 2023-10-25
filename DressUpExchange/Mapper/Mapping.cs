@@ -59,9 +59,9 @@ namespace DressUpExchange.API.Mapper
                 .ForMember(dex => dex.UserId, opt => opt.MapFrom(src => src.UserId))
                  .ForMember(dex => dex.Name, opt => opt.MapFrom(src => src.Name))
                  .ForMember(dex => dex.Code, opt => opt.MapFrom(src => src.Code))
-            .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
-            .ForMember(dex => dex.RemainingCount, opt => opt.MapFrom(src => src.RemainingCount))
-            .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.ExpireDate))
+                .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.DiscountAmount))
+                .ForMember(dex => dex.RemainingCount, opt => opt.MapFrom(src => src.RemainingCount))
+                .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.ExpireDate))
                 .ReverseMap();
 
             CreateMap<VoucherDetailResponse, Voucher>()
@@ -71,9 +71,15 @@ namespace DressUpExchange.API.Mapper
                 .ForMember(dex => dex.DiscountAmount, opt => opt.MapFrom(src => src.discountAmount))
                 .ForMember(dex => dex.ExpireDate, opt => opt.MapFrom(src => src.expireDate))
                 .ReverseMap();
-            //CreateMap<OrderItem, OrderItemsRequest>().ForMember(dex => dex.Price, opt => opt.MapFrom(src => src.Price)).ReverseMap();
-            //CreateMap<OrderItem, OrderItemResponse>().ForMember(dex => dex.price, opt => opt.MapFrom(src => src.Price)).ReverseMap();
 
-            }
+            CreateMap<Order, OrderRequest>().ForMember(dex => dex.OrderItemsRequest, opt => opt.MapFrom(src => src.OrderItems)).ReverseMap();
+            CreateMap<Order, OrderResponse>().ForMember(dex => dex.orderItems, opt => opt.MapFrom(src => src.OrderItems)).ReverseMap();
+            CreateMap<OrderRequest, OrderResponse>().ForMember(dex => dex.orderItems, opt => opt.MapFrom(src => src.OrderItemsRequest)).ReverseMap();
+
+            CreateMap<OrderItem, OrderItemsRequest>().ForMember(dex => dex.BuyingQuantity, opt => opt.MapFrom(src => src.Quantity)).ReverseMap();
+            CreateMap<OrderItem, OrderItemResponse>().ForMember(dex => dex.BuyingQuantity, opt => opt.MapFrom(src => src.Quantity)).ReverseMap();
+            CreateMap<OrderItemsRequest, OrderItemResponse>().ForMember(dex => dex.BuyingQuantity, opt => opt.MapFrom(src => src.BuyingQuantity)).ReverseMap();
+
+        }
     }
 }

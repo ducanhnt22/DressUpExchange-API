@@ -160,5 +160,12 @@
     "C:\\Users\\manda\\.nuget\\packages\\twilio\\6.8.0\\twilio.6.8.0.nupkg.sha512",
     "C:\\Users\\manda\\.nuget\\packages\\vnpaypackage\\2.1.0\\vnpaypackage.2.1.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Code\\EXE_API\\DressUpExchange-API\\DressUpExchange.Service\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

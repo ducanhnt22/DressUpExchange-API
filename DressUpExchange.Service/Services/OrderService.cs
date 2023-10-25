@@ -51,9 +51,9 @@ namespace DressUpExchange.Service.Services
             int orderItemNew = _unitOfWork.Repository<Order>().Find(x => x.OrderDate == dateTime).OrderId;
             foreach (var item in orderRequest.OrderItemsRequest)
             {
-                await UpdateQuantityProduct(item.ProductId, item.Quantity);
+                await UpdateQuantityProduct(item.ProductId, item.BuyingQuantity);
                 OrderItem orderItem = new OrderItem();
-                orderItem.Quantity = item.Quantity;
+                orderItem.Quantity = item.BuyingQuantity;
                 orderItem.ProductId = item.ProductId; orderItem.OrderId = orderItemNew;
                 orderItem.Status = OrderState.Processing.ToString();
                 orderItem.VoucherId = item.VoucherId;
@@ -62,9 +62,7 @@ namespace DressUpExchange.Service.Services
                 await _unitOfWork.Repository<OrderItem>().CreateAsync(orderItem);
                 _unitOfWork.Commit();
             }
-
             return true;
-
         }
 
         public async Task<GeneralOrderResponse> GetOrder(PagingRequest pagingRequest)
