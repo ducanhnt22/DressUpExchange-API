@@ -1,5 +1,7 @@
 ﻿using DressUpExchange.Service.DTO.Request;
+using DressUpExchange.Service.DTO.State;
 using DressUpExchange.Service.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DressUpExchange.API.Controllers
@@ -22,6 +24,7 @@ namespace DressUpExchange.API.Controllers
                 url = rs
             }) : BadRequest();
         }
+        [Authorize(Roles = RoleNames.Customer)]
         [HttpPost("order-payment")]
         public async Task<ActionResult> CreateOrderPayment([FromBody] OrderRequest req)
         {
