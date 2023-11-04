@@ -48,7 +48,7 @@ namespace DressUpExchange.Service.Services
             }
             Random random = new Random();
             int randomNumber = random.Next(100000, 999999);
-            string authToken = _unitOfWork.Repository<User>().Where(x => x.PhoneNumber == "0923581111" && x.Password == "comsuonhocmon").FirstOrDefault()?.Name ?? "1eef725eabb533d667aaa89b3556e24d";
+            string authToken = _config["Twilio:AuthToken"];
             var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromMinutes(5))
                     .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
