@@ -34,8 +34,10 @@ namespace DressUpExchange.Service.Ultilities
                                                         join oi in _context.OrderItems on or.OrderId equals oi.OrderId
                                                         select new OrderResponse
                                                         {
+                                                            OrderId = order.OrderId,
                                                             orderDate = (DateTime)or.OrderDate,
                                                             totalAmount = (int)order.TotalAmount,
+                                                            Status = order.Status,
                                                             orderItems = (from or1 in _context.OrderItems
                                                                           join n in _context.Products on or1.ProductId equals n.ProductId
                                                                           where n.ProductId == or1.ProductId
@@ -58,8 +60,10 @@ namespace DressUpExchange.Service.Ultilities
                           join orderItems in _context.OrderItems on order.OrderId equals orderItems.OrderId
                           select new OrderResponse
                           {
+                              OrderId = order.OrderId,
                               orderDate = (DateTime)order.OrderDate,
                               totalAmount = (int)order.TotalAmount,
+                              Status = order.Status,
                               orderItems = (from ots in _context.OrderItems
                                             join product in _context.Products on ots.ProductId equals product.ProductId
                                             select new OrderItemResponse
@@ -75,8 +79,10 @@ namespace DressUpExchange.Service.Ultilities
             var result1 = (from order in _context.Orders
                            select new OrderResponse
                            {
+                               OrderId = order.OrderId,
                                orderDate = (DateTime)order.OrderDate,
                                totalAmount = (float)order.TotalAmount,
+                               Status = order.Status,
                                orderItems = (from orderItemSp in _context.OrderItems
                                              join product in _context.Products on orderItemSp.ProductId equals product.ProductId
                                              where order.OrderId == orderItemSp.OrderId
@@ -143,8 +149,10 @@ namespace DressUpExchange.Service.Ultilities
                            where order.UserId == customerId
                            select new OrderResponse
                            {
+                               OrderId = order.OrderId,
                                orderDate = (DateTime)order.OrderDate,
                                totalAmount = (float)order.TotalAmount,
+                               Status = order.Status,
                                orderItems = (from orderItemSp in _context.OrderItems
                                              join product in _context.Products on orderItemSp.ProductId equals product.ProductId
                                              where order.OrderId == orderItemSp.OrderId
@@ -210,8 +218,10 @@ namespace DressUpExchange.Service.Ultilities
                            where order.OrderId == OrderId
                            select new OrderResponse
                            {
+                               OrderId = order.OrderId,
                                orderDate = (DateTime)order.OrderDate,
                                totalAmount = (float)order.TotalAmount,
+                               Status = order.Status,
                                orderItems = (from orderItemSp in _context.OrderItems
                                              join product in _context.Products on orderItemSp.ProductId equals product.ProductId
                                              where order.OrderId == orderItemSp.OrderId

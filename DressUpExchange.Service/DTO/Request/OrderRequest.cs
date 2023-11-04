@@ -11,6 +11,7 @@ namespace DressUpExchange.Service.DTO.Request
 {
     public class OrderRequest
     {
+        
         [JsonIgnore]
         public DateTime? OrderDate { get; set; } = DateTime.UtcNow.AddHours(7);
         public decimal TotalAmount { get; set; }

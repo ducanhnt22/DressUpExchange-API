@@ -80,6 +80,7 @@ namespace DressUpExchange.API.Mapper
             CreateMap<OrderItem, OrderItemResponse>().ForMember(dex => dex.BuyingQuantity, opt => opt.MapFrom(src => src.Quantity)).ReverseMap();
             CreateMap<OrderItemsRequest, OrderItemResponse>().ForMember(dex => dex.BuyingQuantity, opt => opt.MapFrom(src => src.BuyingQuantity)).ReverseMap();
 
+            CreateMap<Order, UpdateOrderRequest>().ReverseMap();
         }
     }
 }

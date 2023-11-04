@@ -51,5 +51,18 @@ namespace DressUpExchange.API.Controllers
                 msp = "Đơn hàng đã được tạo"
             });
         }
+        [Authorize(Roles = RoleNames.Admin)]
+        [HttpPut("update-status")]
+        public async Task<ActionResult> UpdateStatus(int orderId, [FromBody]UpdateOrderRequest req)
+        {
+            var rs = _orderService.UpdateStatusHello(orderId, req);
+            return rs != null ? Ok(new
+            {
+                msg = "Update thanh cong"
+            }) : BadRequest(new
+            {
+                msg = "Update that bai"
+            });
+        }
     }
 }
