@@ -50,11 +50,11 @@ namespace DressUpExchange.Service.Services
                 UserId = userId,
                 TotalAmount = req.TotalAmount,
                 Status = req.Status,
-                OrderDate = req.OrderDate
+                OrderDate = dateTime
             };
             
             await _unitOfWork.Repository<Order>().CreateAsync(order);
-            await _unitOfWork.CommitAsync();
+            _unitOfWork.Commit();
 
             List<Order> newOrderItem = await _unitOfWork.Repository<Order>().GetWhere(x => x.OrderDate == dateTime);
             Order lastOrder = newOrderItem.OrderByDescending(x => x.OrderDate).FirstOrDefault();
